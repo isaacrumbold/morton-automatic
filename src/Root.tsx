@@ -5,10 +5,12 @@ import { About } from './routes/About'
 import { Contact } from './routes/Contact'
 import { BrowserRouter } from 'react-router-dom'
 import { NotFound } from './routes/NotFound'
+import { NavBar } from './components/NavBar'
 
 function Root() {
     return (
         <BrowserRouter>
+            <NavBar />
             <Routes>
                 <Route path="/" element={<Layout />} />
                 <Route index element={<Home />} />
