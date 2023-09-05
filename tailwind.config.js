@@ -12,6 +12,9 @@ export default {
                     ...defaultTheme.fontFamily.sans,
                 ],
             },
+            colors: {
+                primary: '#043a66',
+            },
         },
     },
     plugins: [],
