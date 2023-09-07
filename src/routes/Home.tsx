@@ -1,5 +1,6 @@
 import home_banner from './images/home_banner_filtered.jpg'
 import { Lines } from '../components/Lines'
+import { BodyPara } from '../components/BodyPara'
 
 export const Home = () => {
     return (
@@ -8,18 +9,18 @@ export const Home = () => {
                 <Lines />
             </div>
 
-            <div className="absolute flex h-[900px] w-full">
+            <div className="absolute flex h-[950px] w-full">
                 <img
                     src={home_banner}
                     alt="home banner"
                     className=" w-full -translate-y-36 object-cover"
                 />
             </div>
-            <div className="z-10 mt-[600px] flex h-96 w-full skew-y-3 items-center justify-center bg-white">
+            <div className="absolute z-10 mt-[600px] flex h-96 w-full skew-y-3 items-center justify-center bg-white">
                 <Lines />
             </div>
-            <div className=" min-w-mobile absolute z-20 mt-[550px] flex h-56 w-3/4 max-w-5xl flex-col justify-center rounded-3xl bg-white drop-shadow-xl">
-                <div className=" mx-3">
+            <div className=" min-w-mobile z-20 mt-[550px] flex h-max w-3/4 max-w-5xl flex-col justify-center rounded-3xl bg-white drop-shadow-xl">
+                <div className=" mx-3 my-5">
                     <h1 className="mb-3 text-center text-[28px] font-bold text-primary">
                         Our Vision
                     </h1>
@@ -30,16 +31,20 @@ export const Home = () => {
                     </p>
                 </div>
             </div>
-            <div className="min-w-mobile flex w-3/4 max-w-5xl flex-col px-3">
-                <h1 className="mb-3 text-center text-[28px] font-bold text-primary">
-                    What We Do
-                </h1>
-                <p className="text-center text-xl text-gray-700">
-                    Morton Automatic Electric is an automation company
-                    specializing in design build electrical and mechanical test
-                    systems as well as custom control panels and cable
-                    assemblies.
-                </p>
+            <div className="mx-16 flex max-w-6xl items-center max-lg:flex-col">
+                <BodyPara
+                    title="What We Do"
+                    body="Morton Automatic Electric is an automation company
+                        specializing in design build electrical and mechanical
+                        test systems as well as custom control panels and cable
+                        assemblies."
+                />
+                <BodyPara
+                    title="Our Expertise"
+                    body="Morton Automatic Electric has more than 50 years of 
+                    experience building custom control panels, wire harnesses, and 
+                    testing equipment."
+                />
             </div>
         </div>
     )
