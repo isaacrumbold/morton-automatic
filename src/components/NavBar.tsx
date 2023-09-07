@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import logo from '../assets/logo.jpg'
-import { Ref } from './Ref'
+import { Ref } from '../routes/components/Ref'
 import { useState } from 'react'
 
 export const NavBar = () => {
