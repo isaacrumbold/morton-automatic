@@ -1,6 +1,7 @@
 import home_banner from './images/home_banner_filtered.jpg'
 import { Lines } from '../components/Lines'
 import { BodyPara } from '../components/BodyPara'
+import { BodyWrapper } from '../components/BodyWrapper'
 
 export const Home = () => {
     return (
@@ -31,7 +32,7 @@ export const Home = () => {
                     </p>
                 </div>
             </div>
-            <div className="mx-16 flex max-w-6xl items-center max-lg:flex-col">
+            <BodyWrapper>
                 <BodyPara
                     title="What We Do"
                     body="Morton Automatic Electric is an automation company
@@ -45,7 +46,7 @@ export const Home = () => {
                     experience building custom control panels, wire harnesses, and 
                     testing equipment."
                 />
-            </div>
+            </BodyWrapper>
         </div>
     )
 }
