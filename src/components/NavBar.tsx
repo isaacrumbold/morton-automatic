@@ -16,13 +16,13 @@ export const NavBar = () => {
 
     return (
         <div className="flex">
-            <div className="text-primary flex h-24  w-full bg-white px-10 max-lg:hidden">
-                <div className=" items flex h-full w-full">
+            <div className="flex h-24 w-full justify-center bg-white px-10 text-primary max-lg:hidden">
+                <div className="flex h-full w-full max-w-screen-2xl">
                     <Link to="/" className="flex">
                         <img src={logo} alt="logo" className="my-2" />
                     </Link>
                     <div className="mx-4 my-auto">
-                        <h1 className=" text-primary  my-auto text-[28px] font-medium">
+                        <h1 className=" my-auto  text-[28px] font-medium text-primary">
                             Morton Automatic Electric
                         </h1>
                         <div className=" flex flex-col items-center justify-center text-xs text-gray-500">
@@ -40,13 +40,13 @@ export const NavBar = () => {
                 </div>
             </div>
             <div className="h-fit w-full lg:hidden">
-                <div className="text-primary flex h-16  w-full bg-white px-3">
+                <div className="flex h-16 w-full  bg-white px-3 text-primary">
                     <div className=" items flex h-full w-full">
                         <Link to="/" className="flex">
                             <img src={logo} alt="logo" className="my-1 flex" />
                         </Link>
                         <div className="mx-1 my-auto">
-                            <h1 className=" text-primary  my-auto text-lg font-medium">
+                            <h1 className=" my-auto  text-lg font-medium text-primary">
                                 Morton Automatic Electric
                             </h1>
                         </div>
@@ -56,7 +56,7 @@ export const NavBar = () => {
                     </div>
                 </div>
                 <nav
-                    className={`border-primary absolute ml-auto flex w-full border-spacing-4 flex-col items-end border-t bg-white text-sm ${display} text-primary py-2 font-medium`}
+                    className={`absolute ml-auto flex w-full border-spacing-4 flex-col items-end border-t border-primary bg-white text-sm ${display} py-2 font-medium text-primary`}
                 >
                     <Ref linkTo="about" name="About" />
                     <Ref linkTo="contact" name="Contact" />
