@@ -16,8 +16,8 @@ export const NavBar = () => {
 
     return (
         <div className="flex">
-            <div className="flex h-24 w-full justify-center bg-white px-10 text-primary max-lg:hidden">
-                <div className="flex h-full w-full max-w-screen-2xl">
+            <div className=" z-10 flex h-24 w-full justify-center bg-white text-primary max-lg:hidden">
+                <div className=" mx-10 flex h-full w-full max-w-screen-2xl px-2">
                     <Link to="/" className="flex">
                         <img src={logo} alt="logo" className="my-2" />
                     </Link>
@@ -25,7 +25,7 @@ export const NavBar = () => {
                         <h1 className=" my-auto  text-[28px] font-medium text-primary">
                             Morton Automatic Electric
                         </h1>
-                        <div className=" flex flex-col items-center justify-center text-xs text-gray-500">
+                        <div className=" flex flex-col items-center justify-center text-xs text-gray-700">
                             <h2>
                                 Control Panels | Wire Harness Assemblies |
                                 Programming
@@ -39,7 +39,7 @@ export const NavBar = () => {
                     </nav>
                 </div>
             </div>
-            <div className="h-fit w-full lg:hidden">
+            <div className=" z-10 h-fit w-full lg:hidden">
                 <div className="flex h-16 w-full  bg-white px-3 text-primary">
                     <div className=" items flex h-full w-full">
                         <Link to="/" className="flex">

@@ -15,6 +15,9 @@ export default {
             colors: {
                 primary: '#043a66',
             },
+            minWidth: {
+                mobile: '260px',
+            },
         },
     },
     plugins: [],
