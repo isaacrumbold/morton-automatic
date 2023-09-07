@@ -1,6 +1,6 @@
 import home_banner from './images/home_banner_filtered.jpg'
 import { Lines } from '../components/Lines'
-import { BodyPara } from '../components/BodyPara'
+import { BodyPara } from './components/BodyPara'
 import { BodyWrapper } from '../components/BodyWrapper'
 
 export const Home = () => {
@@ -20,7 +20,7 @@ export const Home = () => {
             <div className="absolute z-10 mt-[600px] flex h-96 w-full skew-y-3 items-center justify-center bg-white">
                 <Lines />
             </div>
-            <div className=" min-w-mobile z-20 mt-[550px] flex h-max w-3/4 max-w-5xl flex-col justify-center rounded-3xl bg-white drop-shadow-xl">
+            <div className=" z-20 mt-[550px] flex h-max w-3/4 min-w-mobile max-w-5xl flex-col justify-center rounded-3xl bg-white drop-shadow-xl">
                 <div className=" mx-3 my-5">
                     <h1 className="mb-3 text-center text-[28px] font-bold text-primary">
                         Our Vision

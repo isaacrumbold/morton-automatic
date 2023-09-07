@@ -6,6 +6,7 @@ import { Contact } from './routes/Contact'
 import { BrowserRouter } from 'react-router-dom'
 import { NotFound } from './routes/NotFound'
 import { NavBar } from './components/NavBar'
+import { Footer } from './components/Footer'
 
 function Root() {
     return (
@@ -18,6 +19,7 @@ function Root() {
                 <Route path="contact" element={<Contact />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
+            <Footer />
         </BrowserRouter>
     )
 }
