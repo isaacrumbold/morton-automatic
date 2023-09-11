@@ -10,14 +10,14 @@ export const Home = () => {
                 <Lines />
             </div>
 
-            <div className="absolute flex h-[950px] w-full">
+            <div className="absolute z-20 flex h-[950px] w-full">
                 <img
                     src={home_banner}
                     alt="home banner"
                     className=" w-full -translate-y-36 object-cover"
                 />
             </div>
-            <div className="absolute z-10 mt-[600px] flex h-96 w-full skew-y-3 items-center justify-center bg-white">
+            <div className="absolute z-20 mt-[600px] flex h-96 w-full skew-y-3 items-center justify-center bg-white">
                 <Lines />
             </div>
             <div className=" z-20 mt-[550px] flex h-max w-3/4 min-w-mobile max-w-5xl flex-col justify-center rounded-3xl bg-white drop-shadow-xl">
@@ -32,21 +32,23 @@ export const Home = () => {
                     </p>
                 </div>
             </div>
-            <BodyWrapper>
-                <BodyPara
-                    title="What We Do"
-                    body="Morton Automatic Electric is an automation company
+            <div className="flex w-full justify-center bg-white">
+                <BodyWrapper>
+                    <BodyPara
+                        title="What We Do"
+                        body="Morton Automatic Electric is an automation company
                         specializing in design build electrical and mechanical
                         test systems as well as custom control panels and cable
                         assemblies."
-                />
-                <BodyPara
-                    title="Our Expertise"
-                    body="Morton Automatic Electric has more than 50 years of 
+                    />
+                    <BodyPara
+                        title="Our Expertise"
+                        body="Morton Automatic Electric has more than 50 years of 
                     experience building custom control panels, wire harnesses, and 
                     testing equipment."
-                />
-            </BodyWrapper>
+                    />
+                </BodyWrapper>
+            </div>
         </div>
     )
 }
