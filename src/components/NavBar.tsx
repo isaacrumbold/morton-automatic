@@ -15,8 +15,8 @@ export const NavBar = () => {
     }
 
     return (
-        <div className="flex">
-            <div className=" z-10 flex h-24 w-full justify-center bg-white text-primary max-lg:hidden">
+        <div className="flex h-fit w-full">
+            <div className=" z-30 flex h-24 w-full justify-center bg-white text-primary max-lg:hidden">
                 <div className=" mx-10 flex h-full w-full max-w-screen-2xl px-2">
                     <Link to="/" className="flex">
                         <img src={logo} alt="logo" className="my-2" />
@@ -39,7 +39,7 @@ export const NavBar = () => {
                     </nav>
                 </div>
             </div>
-            <div className=" z-10 h-fit w-full lg:hidden">
+            <div className=" z-30 h-fit w-full lg:hidden">
                 <div className="flex h-16 w-full  bg-white px-3 text-primary">
                     <div className=" items flex h-full w-full">
                         <Link to="/" className="flex">
