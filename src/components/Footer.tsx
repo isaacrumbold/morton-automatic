@@ -1,19 +1,24 @@
-import logo from '../assets/logo.jpg'
+import logo from '../assets/logo-round.png'
 import { FooterLink } from './FooterLink'
 
 export const Footer = () => {
     return (
-        <div className="mt-full flex w-full flex-col items-center overflow-hidden bg-primary">
-            <div className=" max my-5 flex w-full items-center justify-center">
+        <div className="mt-full flex w-full items-center overflow-hidden bg-primary">
+            <div className=" max my-5 flex w-full items-center justify-center max-lg:flex-col max-lg:space-y-9 lg:space-x-28">
                 <div className="h-fit w-fit">
-                    <img src={logo} alt="maeco logo" width={75} />
+                    <img
+                        src={logo}
+                        alt="maeco logo"
+                        width={125}
+                        className="rounded-md"
+                    />
                 </div>
-                <div className="ml-28 flex h-full w-fit flex-col space-y-3 text-white">
+                <div className="  flex h-full w-fit flex-col space-y-3 text-white max-lg:text-center">
                     <FooterLink linkTo="/" name="Home" />
                     <FooterLink linkTo="about" name="About" />
                     <FooterLink linkTo="contact" name="Contact" />
                 </div>
-                <div className="ml-28 flex h-full w-fit flex-col space-y-3 text-white">
+                <div className=" flex h-full w-fit flex-col space-y-3 text-white max-lg:text-center">
                     <a
                         href="mailto:info@mortonautomatic.com"
                         className="hover:underline"
@@ -28,7 +33,6 @@ export const Footer = () => {
                         target="_blank"
                         className="hover:underline"
                     >
-                        {' '}
                         641 W David St.
                         <br />
                         Morton IL, 61550

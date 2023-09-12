@@ -34,6 +34,7 @@ export const NavBar = () => {
                         </div>
                     </div>
                     <nav className="ml-auto flex text-lg font-medium">
+                        <Ref linkTo="/" name="Home" />
                         <Ref linkTo="about" name="About" />
                         <Ref linkTo="contact" name="Contact" />
                     </nav>
@@ -58,6 +59,7 @@ export const NavBar = () => {
                 <nav
                     className={`absolute ml-auto flex w-full border-spacing-4 flex-col items-end border-t border-primary bg-white text-sm ${display} py-2 font-medium text-primary`}
                 >
+                    <Ref linkTo="/" name="Home" />
                     <Ref linkTo="about" name="About" />
                     <Ref linkTo="contact" name="Contact" />
                 </nav>
