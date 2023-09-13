@@ -6,9 +6,10 @@ import { BodyWrapper } from '../components/BodyWrapper'
 export const Home = () => {
     return (
         <div className="flex h-fit w-full flex-col items-center bg-white">
-            <div className="absolute z-10 flex h-full w-full justify-center bg-transparent">
+            {/* lines work at higher resolution / full screen */}
+            {/* <div className="absolute z-10 flex h-full w-full justify-center bg-transparent">
                 <Lines />
-            </div>
+            </div> */}
             <div className="absolute z-20 flex h-[1000px] w-full -translate-y-52 overflow-hidden">
                 <img
                     src={home_banner}
@@ -16,7 +17,7 @@ export const Home = () => {
                     className=" w-full  object-cover"
                 />
                 <div className=" absolute bottom-0 flex h-96 w-full translate-y-44 skew-y-2 items-center justify-center bg-white">
-                    <Lines />
+                    {/* <Lines /> */}
                 </div>
             </div>
 
