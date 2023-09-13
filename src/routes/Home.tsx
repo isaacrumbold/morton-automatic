@@ -1,5 +1,5 @@
 import home_banner from './images/home_banner_filtered.jpg'
-import { Lines } from '../components/Lines'
+
 import { BodyPara } from './components/BodyPara'
 import { BodyWrapper } from '../components/BodyWrapper'
 
@@ -14,8 +14,15 @@ export const Home = () => {
                 <img
                     src={home_banner}
                     alt="home banner"
-                    className=" w-full  object-cover"
+                    className="object-cover"
                 />
+                <div className=" absolute top-[360px] flex h-fit w-full flex-col bg-transparent  text-center  text-white">
+                    <h1 className=" text-5xl font-medium leading-tight">
+                        Creating Innovative <br /> Solutions Since
+                    </h1>
+                    <h2 className="text-4xl font-light leading-tight">1972</h2>
+                </div>
+
                 <div className=" absolute bottom-0 flex h-96 w-full translate-y-44 skew-y-2 items-center justify-center bg-white">
                     {/* <Lines /> */}
                 </div>
