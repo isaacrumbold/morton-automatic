@@ -1,20 +1,15 @@
 import home_banner from './images/home_banner_filtered.jpg'
-
 import { BodyPara } from './components/BodyPara'
 import { BodyWrapper } from '../components/BodyWrapper'
 
 export const Home = () => {
     return (
         <div className="flex h-fit w-full flex-col items-center bg-white">
-            {/* lines work at higher resolution / full screen */}
-            {/* <div className="absolute z-10 flex h-full w-full justify-center bg-transparent">
-                <Lines />
-            </div> */}
             <div className="absolute z-20 flex h-[1000px] w-full -translate-y-52 overflow-hidden">
                 <img
                     src={home_banner}
                     alt="home banner"
-                    className="object-cover"
+                    className="w-full object-cover"
                 />
                 <div className=" absolute top-[360px] flex h-fit w-full flex-col bg-transparent  text-center  text-white">
                     <h1 className=" text-5xl font-medium leading-tight">
@@ -23,9 +18,7 @@ export const Home = () => {
                     <h2 className="text-4xl font-light leading-tight">1972</h2>
                 </div>
 
-                <div className=" absolute bottom-0 flex h-96 w-full translate-y-44 skew-y-2 items-center justify-center bg-white">
-                    {/* <Lines /> */}
-                </div>
+                <div className=" absolute bottom-0 flex h-96 w-full translate-y-44 skew-y-2 items-center justify-center bg-white"></div>
             </div>
 
             <div className="z-20 mt-[550px] flex h-max w-3/4 min-w-mobile max-w-5xl flex-col justify-center rounded-3xl bg-white drop-shadow-xl">
