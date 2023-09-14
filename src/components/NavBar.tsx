@@ -73,9 +73,13 @@ export const NavBar = () => {
                 <nav
                     className={`absolute ml-auto flex w-full border-spacing-4 flex-col items-end border-t border-primary bg-white text-sm ${display} py-2 font-medium text-primary`}
                 >
-                    <Ref linkTo="/" name="Home" />
-                    <Ref linkTo="about" name="About" />
-                    <Ref linkTo="contact" name="Contact" />
+                    <Ref linkTo="/" name="Home" closeMenu={expandMenu} />
+                    <Ref linkTo="about" name="About" closeMenu={expandMenu} />
+                    <Ref
+                        linkTo="contact"
+                        name="Contact"
+                        closeMenu={expandMenu}
+                    />
                 </nav>
             </div>
         </div>
