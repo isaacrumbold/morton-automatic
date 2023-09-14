@@ -48,7 +48,7 @@ export const NavBar = () => {
             <div className=" z-30 h-fit w-full lg:hidden">
                 <div className="flex h-16 w-full  bg-white px-3 text-primary">
                     <div className=" items flex h-full w-full">
-                        <Link to="/" className="flex">
+                        <Link to="/" className="flex min-w-fit">
                             <img src={logo} alt="logo" className="my-1 flex" />
                         </Link>
                         <div className="mx-1 my-auto">
