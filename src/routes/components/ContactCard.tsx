@@ -22,7 +22,7 @@ export const ContactCard = ({
                 <h1 className="text-2xl font-semibold text-primary">{title}</h1>
                 <a
                     href={href}
-                    className="flex items-center text-lg text-gray-700 hover:underline"
+                    className="flex items-center text-lg text-gray-700 decoration-primary decoration-2 hover:underline"
                 >
                     {hrefTitle} <br />
                     {hrefTitle2}

@@ -8,7 +8,7 @@ import {
 
 export const Footer = () => {
     return (
-        <div className=" mt-full sticky top-[100vh] flex w-full items-center overflow-hidden bg-primary">
+        <div className=" mt-full sticky top-[100vh] flex w-full flex-col items-center overflow-hidden bg-primary">
             <div className=" max my-8 flex w-full items-center justify-center max-lg:flex-col max-lg:space-y-9 lg:space-x-28">
                 <div className="h-fit w-fit">
                     <img
@@ -48,6 +48,9 @@ export const Footer = () => {
                         Morton IL, 61550
                     </a>
                 </div>
+            </div>
+            <div className="bg-primaryDark flex h-fit w-full justify-center py-3 text-center text-sm text-white">
+                <p>Morton Automatic Electric&#174; - All Rights Reserved</p>
             </div>
         </div>
     )

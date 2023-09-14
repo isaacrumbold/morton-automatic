@@ -14,6 +14,7 @@ export default {
             },
             colors: {
                 primary: '#043a66',
+                primaryDark: '#002F54',
             },
             minWidth: {
                 mobile: '260px',

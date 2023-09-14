@@ -40,7 +40,7 @@ export const Contact = () => {
                                     <h1 className="text-2xl font-semibold text-primary">
                                         Business Hours
                                     </h1>
-                                    <p className="flex items-center text-lg text-gray-700 hover:underline">
+                                    <p className="flex items-center text-lg text-gray-700 decoration-primary decoration-2 hover:underline">
                                         Monday - Friday: 8a.m. - 4p.m. <br />
                                         Saturday - Sunday: Closed
                                     </p>
