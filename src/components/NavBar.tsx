@@ -1,16 +1,20 @@
 import { Link } from 'react-router-dom'
 import logo from '../assets/logo.jpg'
 import { Ref } from './Ref'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
 
 export const NavBar = () => {
     const [display, setDisplay] = useState('hidden')
+    const [isMenuopen, setIsMenuOpen] = useState(false)
 
     const expandMenu = () => {
-        if (display === 'hidden') {
+        if (!isMenuopen) {
             setDisplay('flex')
+            setIsMenuOpen(true)
         } else {
             setDisplay('hidden')
+            setIsMenuOpen(false)
         }
     }
 
@@ -40,6 +44,7 @@ export const NavBar = () => {
                     </nav>
                 </div>
             </div>
+            {/* screen break point */}
             <div className=" z-30 h-fit w-full lg:hidden">
                 <div className="flex h-16 w-full  bg-white px-3 text-primary">
                     <div className=" items flex h-full w-full">
@@ -51,9 +56,18 @@ export const NavBar = () => {
                                 Morton Automatic Electric
                             </h1>
                         </div>
-                        <button className="ml-auto" onClick={expandMenu}>
-                            Menu
-                        </button>
+                        <div className="ml-auto flex h-full w-fit">
+                            <button
+                                className="my-auto text-primary"
+                                onClick={expandMenu}
+                            >
+                                {isMenuopen ? (
+                                    <XMarkIcon className="w-10" />
+                                ) : (
+                                    <Bars3Icon className=" w-10" />
+                                )}
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <nav
