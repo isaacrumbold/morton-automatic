@@ -50,7 +50,7 @@ export const Footer = () => {
                 </div>
             </div>
             <div className="bg-primaryDark flex h-fit w-full justify-center py-3 text-center text-sm text-white">
-                <p>Morton Automatic Electric&#174; - All Rights Reserved</p>
+                <p>Morton Automatic Electric &#174; - All Rights Reserved</p>
             </div>
         </div>
     )
