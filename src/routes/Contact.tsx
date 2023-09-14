@@ -2,6 +2,7 @@ import {
     DevicePhoneMobileIcon,
     EnvelopeIcon,
     MapPinIcon,
+    BuildingOffice2Icon,
 } from '@heroicons/react/24/outline'
 import Iframe from 'react-iframe'
 import { BodyWrapper } from '../components/BodyWrapper'
@@ -34,7 +35,7 @@ export const Contact = () => {
                     <div className="flex w-full justify-center">
                         <div className="my-12 flex flex-col  space-y-12">
                             <div className=" z-30  flex w-fit items-center">
-                                <DevicePhoneMobileIcon className=" mr-4 h-10 text-primary" />
+                                <BuildingOffice2Icon className=" mr-4 h-10 text-primary" />
                                 <div>
                                     <h1 className="text-2xl font-semibold text-primary">
                                         Business Hours
