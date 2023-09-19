@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { Home } from './routes/Home'
 import { Layout } from './routes/Layout'
 import { About } from './routes/About'
@@ -7,10 +7,15 @@ import { BrowserRouter } from 'react-router-dom'
 import { NotFound } from './routes/NotFound'
 import { NavBar } from './components/NavBar'
 import { Footer } from './components/Footer'
+import { useEffect } from 'react'
 
 function Root() {
+    const { pathname } = useLocation()
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [pathname])
     return (
-        <BrowserRouter>
+        <>
             <NavBar />
             <Routes>
                 <Route path="/" element={<Layout />} />
@@ -20,7 +25,7 @@ function Root() {
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />
-        </BrowserRouter>
+        </>
     )
 }
 
