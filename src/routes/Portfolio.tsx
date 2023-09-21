@@ -1,3 +1,4 @@
+import { BodyWrapper } from '../components/BodyWrapper'
 import { Banner } from './components/Banner'
 import portfolio_banner from './images/bg-2.jpg'
 import panel from './images/DSC_4228.jpg'
