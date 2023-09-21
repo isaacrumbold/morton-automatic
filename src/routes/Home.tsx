@@ -1,12 +1,11 @@
 import home_banner from './images/home_banner_filtered.jpg'
 import { BodyPara } from './components/BodyPara'
 import { BodyWrapper } from '../components/BodyWrapper'
-import { Banner } from './components/Banner'
 
 export const Home = () => {
     return (
         <div className="flex h-fit w-full flex-col items-center bg-white">
-            {/* <div className="absolute z-20 flex h-[1000px] w-full -translate-y-52 overflow-hidden">
+            <div className="absolute z-20 flex h-[1000px] w-full -translate-y-52 overflow-hidden">
                 <img
                     src={home_banner}
                     alt="home banner"
@@ -20,15 +19,7 @@ export const Home = () => {
                 </div>
 
                 <div className=" absolute bottom-0 flex h-96 w-full translate-y-44 skew-y-2 items-center justify-center bg-white"></div>
-            </div> */}
-            <Banner
-                title1="Creating Innovative"
-                title2="Solutions Since"
-                subtitle="1972"
-                image={home_banner}
-                alt="home banner"
-                top={360}
-            />
+            </div>
 
             <div className="z-20 mt-[550px] flex h-max w-3/4 min-w-mobile max-w-5xl flex-col justify-center rounded-3xl bg-white drop-shadow-xl">
                 <div className=" mx-3 my-5">
