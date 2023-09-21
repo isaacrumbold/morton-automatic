@@ -16,15 +16,15 @@ export const Portfolio = () => {
                 imageClass="translate-y-52"
             />
             <div className="mt-[600px] flex h-fit w-full justify-center">
-                <div className="z-20 flex w-full max-w-6xl max-lg:flex-col max-lg:items-center">
-                    <div className="m-4 mb-6 h-fit min-w-mobile max-lg:mb-2 max-lg:w-4/6 lg:w-1/2">
+                <BodyWrapper>
+                    <div className="m-4 mb-6 h-fit w-1/2 min-w-mobile">
                         <img
                             src={panel}
                             alt="panel"
                             className=" w-full rounded-md object-cover"
                         />
                     </div>
-                    <div className="mx-4 my-8 flex min-w-mobile flex-col max-lg:my-4 max-lg:w-4/6 lg:w-1/2">
+                    <div className="mx-4 my-8 flex w-1/2 min-w-mobile flex-col">
                         <h1 className="mb-3 text-2xl font-bold text-primary">
                             Title Here
                         </h1>
@@ -44,7 +44,7 @@ export const Portfolio = () => {
                             <ChevronRightIcon className="ml-2 inline-block h-5 text-primary opacity-0 transition-all delay-200  duration-300 group-hover:text-white group-hover:opacity-100" />
                         </button>
                     </div>
-                </div>
+                </BodyWrapper>
             </div>
         </div>
     )
