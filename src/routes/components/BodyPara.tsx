@@ -5,7 +5,7 @@ type BodyParaProps = {
 
 export const BodyPara = ({ title, body }: BodyParaProps) => {
     return (
-        <div className=" min-w-mobile z-30 mx-3 my-7 flex w-3/4 max-w-5xl flex-col px-3">
+        <div className=" mx-3 my-7 flex w-3/4 min-w-mobile max-w-5xl flex-col px-3">
             <h1 className="mb-3 text-center text-2xl font-bold text-primary">
                 {title}
             </h1>
