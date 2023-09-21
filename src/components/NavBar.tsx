@@ -4,6 +4,13 @@ import { Ref } from './Ref'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
 
+const links = [
+    { to: '/', name: 'Home', id: 1 },
+    { to: 'about', name: 'About', id: 2 },
+    { to: 'contact', name: 'Contact', id: 3 },
+    { to: 'portfolio', name: 'Portfolio', id: 4 },
+]
+
 export const NavBar = () => {
     const [display, setDisplay] = useState('hidden')
     const [isMenuopen, setIsMenuOpen] = useState(false)
@@ -38,10 +45,13 @@ export const NavBar = () => {
                         </div>
                     </div>
                     <nav className="ml-auto flex text-lg font-medium">
-                        <Ref linkTo="/" name="Home" />
-                        <Ref linkTo="about" name="About" />
-                        <Ref linkTo="contact" name="Contact" />
-                        <Ref linkTo="portfolio" name="Portfolio" />
+                        {links.map((link) => (
+                            <Ref
+                                key={link.id}
+                                linkTo={link.to}
+                                name={link.name}
+                            />
+                        ))}
                     </nav>
                 </div>
             </div>
@@ -74,13 +84,14 @@ export const NavBar = () => {
                 <nav
                     className={`absolute ml-auto flex w-full border-spacing-4 flex-col items-end border-t border-primary bg-white text-sm ${display} py-2 font-medium text-primary`}
                 >
-                    <Ref linkTo="/" name="Home" closeMenu={expandMenu} />
-                    <Ref linkTo="about" name="About" closeMenu={expandMenu} />
-                    <Ref
-                        linkTo="contact"
-                        name="Contact"
-                        closeMenu={expandMenu}
-                    />
+                    {links.map((link) => (
+                        <Ref
+                            key={link.id}
+                            linkTo={link.to}
+                            name={link.name}
+                            closeMenu={expandMenu}
+                        />
+                    ))}
                 </nav>
             </div>
         </div>
