@@ -1,19 +1,27 @@
 import { BodyWrapper } from '../components/BodyWrapper'
-import { Banner } from './components/Banner'
 import { BodyPara } from './components/BodyPara'
 import flag_banner from './images/flag_banner.jpg'
 
 export const About = () => {
     return (
         <div className="flex h-fit w-full flex-col items-center bg-white">
-            <Banner
-                title1="Who We Are"
-                subtitle="Innovative solutions and quality custom control builds"
-                image={flag_banner}
-                alt="about banner"
-                top={400}
-                imageClass="translate-y-52"
-            />
+            <div className="absolute z-20 flex h-[1000px] w-full -translate-y-52 overflow-hidden">
+                <img
+                    src={flag_banner}
+                    alt="home banner"
+                    className="w-full translate-y-52 object-cover"
+                />
+                <div className=" absolute top-[400px] flex h-fit w-full flex-col bg-transparent  text-center  text-white">
+                    <h1 className=" text-5xl font-medium leading-tight">
+                        Who We Are
+                    </h1>
+                    <h2 className="text-4xl font-light leading-tight">
+                        Customized units built for your needs
+                    </h2>
+                </div>
+
+                <div className=" absolute bottom-0 flex h-96 w-full translate-y-44 skew-y-2 items-center justify-center bg-white"></div>
+            </div>
 
             <div className="mt-[600px] flex h-fit w-full justify-center">
                 <BodyWrapper>

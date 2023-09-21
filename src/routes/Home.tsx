@@ -6,6 +6,21 @@ import { Banner } from './components/Banner'
 export const Home = () => {
     return (
         <div className="flex h-fit w-full flex-col items-center bg-white">
+            {/* <div className="absolute z-20 flex h-[1000px] w-full -translate-y-52 overflow-hidden">
+                <img
+                    src={home_banner}
+                    alt="home banner"
+                    className="w-full object-cover"
+                />
+                <div className=" absolute top-[360px] flex h-fit w-full flex-col bg-transparent  text-center  text-white">
+                    <h1 className=" text-5xl font-medium leading-tight">
+                        Creating Innovative <br /> Solutions Since
+                    </h1>
+                    <h2 className="text-4xl font-light leading-tight">1972</h2>
+                </div>
+
+                <div className=" absolute bottom-0 flex h-96 w-full translate-y-44 skew-y-2 items-center justify-center bg-white"></div>
+            </div> */}
             <Banner
                 title1="Creating Innovative"
                 title2="Solutions Since"
