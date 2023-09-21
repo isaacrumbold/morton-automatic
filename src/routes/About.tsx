@@ -8,7 +8,7 @@ export const About = () => {
         <div className="flex h-fit w-full flex-col items-center bg-white">
             <Banner
                 title1="Who We Are"
-                subtitle="Customized units built for your needs"
+                subtitle="Innovative solutions and quality custom control builds"
                 image={flag_banner}
                 alt="about banner"
                 top={400}
