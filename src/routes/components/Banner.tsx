@@ -5,6 +5,7 @@ type BannerProps = {
     image: string
     top: number
     alt: string
+    imageClass?: string
 }
 
 export const Banner = ({
@@ -14,10 +15,15 @@ export const Banner = ({
     image,
     top,
     alt,
+    imageClass,
 }: BannerProps) => {
     return (
         <div className="absolute z-20 flex h-[1000px] w-full -translate-y-52 overflow-hidden">
-            <img src={image} alt={alt} className="w-full object-cover" />
+            <img
+                src={image}
+                alt={alt}
+                className={`w-full object-cover ${imageClass}`}
+            />
             <div
                 className={`absolute top-[${top}px] flex h-fit w-full flex-col bg-transparent  text-center  text-white`}
             >
