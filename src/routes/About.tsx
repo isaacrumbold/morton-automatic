@@ -16,7 +16,7 @@ export const About = () => {
                         Who We Are
                     </h1>
                     <h2 className="text-4xl font-light leading-tight">
-                        Innovative solutions and quality custom control builds
+                        Customized units built for your needs
                     </h2>
                 </div>
 
