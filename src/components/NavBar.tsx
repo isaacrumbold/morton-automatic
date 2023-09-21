@@ -41,7 +41,6 @@ export const NavBar = () => {
                         <Ref linkTo="/" name="Home" />
                         <Ref linkTo="about" name="About" />
                         <Ref linkTo="contact" name="Contact" />
-                        <Ref linkTo="portfolio" name="Portfolio" />
                     </nav>
                 </div>
             </div>
