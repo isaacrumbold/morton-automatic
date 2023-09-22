@@ -12,7 +12,6 @@ export const Portfolio = () => {
                 subtitle="Examples of the quality work we do"
                 image={portfolio_banner}
                 alt="home banner"
-                top={360}
                 imageClass="translate-y-52"
             />
             <div className="mt-[600px] flex h-fit w-full flex-col items-center pt-16">

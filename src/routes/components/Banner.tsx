@@ -3,7 +3,6 @@ type BannerProps = {
     title2?: string
     subtitle: string
     image: string
-    top: number
     alt: string
     imageClass?: string
 }
@@ -13,7 +12,6 @@ export const Banner = ({
     title2,
     subtitle,
     image,
-    top,
     alt,
     imageClass,
 }: BannerProps) => {
@@ -25,7 +23,7 @@ export const Banner = ({
                 className={`w-full object-cover ${imageClass}`}
             />
             <div
-                className={`absolute top-[${top}px] flex h-fit w-full flex-col bg-transparent  text-center  text-white`}
+                className={`absolute  mt-96 flex h-fit w-full flex-col  bg-transparent  text-center text-white`}
             >
                 <h1 className=" text-5xl font-medium leading-tight">
                     {title1}
