@@ -12,7 +12,6 @@ export const Home = () => {
                 subtitle="1972"
                 image={home_banner}
                 alt="home banner"
-                top={360}
             />
 
             <div className="z-20 mt-[550px] flex h-max w-3/4 min-w-mobile max-w-5xl flex-col justify-center rounded-3xl bg-white drop-shadow-xl">

@@ -11,7 +11,6 @@ export const About = () => {
                 subtitle="Customized units built for your needs"
                 image={flag_banner}
                 alt="about banner"
-                top={400}
                 imageClass="translate-y-52"
             />
 
