@@ -633,6 +633,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^20.7.0":
+  version: 20.7.0
+  resolution: "@types/node@npm:20.7.0"
+  checksum: 1b2919925c213f4d2039ada7a8354c998e144f7291db8d719ef58ea9924ab636c113690073b0ec3b82ba62907385f7e0f51e9d1583c1a818776daa5156d3a590
+  languageName: node
+  linkType: hard
+
 "@types/prop-types@npm:*":
   version: 15.7.5
   resolution: "@types/prop-types@npm:15.7.5"
@@ -2234,6 +2241,7 @@ __metadata:
   resolution: "maeco@workspace:."
   dependencies:
     "@heroicons/react": ^2.0.18
+    "@types/node": ^20.7.0
     "@types/react": ^18.2.15
     "@types/react-dom": ^18.2.7
     "@typescript-eslint/eslint-plugin": ^6.0.0

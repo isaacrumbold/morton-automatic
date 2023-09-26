@@ -1,6 +1,8 @@
 import { ChevronRightIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
 import { ProjectCard } from './ProjectCard'
+import im1 from '../images/project_images_1/DSC_4228.jpg'
+import im2 from '../images/project_images_1/IMG_1793.jpg'
 
 type ProjectSectionProps = {
     image: string
@@ -16,6 +18,8 @@ type IsOpenType = {
     css: 'hidden' | 'block'
 }
 
+const testImages = [im1, im2]
+
 export const ProjectSection = ({
     image,
     title,
@@ -23,6 +27,7 @@ export const ProjectSection = ({
     alt,
     flipped = false,
 }: ProjectSectionProps) => {
+    // console.log(images)
     const [isOpen, setIsOpen] = useState<IsOpenType>({
         open: false,
         css: 'hidden',
@@ -69,25 +74,29 @@ export const ProjectSection = ({
                 </div>
             </div>
             <div
-                className={`flex h-fit w-11/12 max-w-6xl flex-col justify-center border-l-4 border-primary ${isOpen.css} `}
+                className={`flex h-fit w-11/12 max-w-6xl flex-col items-center border-l-4 border-primary bg-slate-100 py-6 ${isOpen.css} `}
             >
-                {/* option 1 */}
-                <ProjectCard />
-                {/* option 2 */}
-                <div className=" mx-10 flex w-5/6 text-primary">
-                    <div className=" h-fit w-1/2 max-lg:mb-2">
-                        <img
-                            src={image}
-                            alt={alt}
-                            className=" w-full rounded-md object-cover"
-                        />
-                    </div>
-                    <div className=" mx-1 flex w-1/2  flex-col justify-end">
-                        <h1 className="mb-3 flex h-3/4 items-center rounded-e-3xl border-y-4 border-r-4 border-primary px-4 text-xl font-bold">
-                            CAT Control Panel for Things
-                        </h1>
-                    </div>
-                </div>
+                <ProjectCard
+                    imgArray={testImages}
+                    title="Project 1"
+                    description="Here would be a great place to describe the project.
+                            It can be a very long description or it can be
+                            short, simple, and to the point. I mean that is the
+                            whole point of this part, that YOU can create it,
+                            edit it and make it to your liking. So go ahead and
+                            enjoy, dream, and create. The sky is the limit..."
+                />
+                <ProjectCard imgArray={testImages} title="Project 1" />
+                <ProjectCard
+                    imgArray={testImages}
+                    title="Project 1"
+                    description="Here would be a great place to describe the project.
+                            It can be a very long description or it can be
+                            short, simple, and to the point. I mean that is the
+                            whole point of this part, that YOU can create it,
+                            edit it and make it to your liking. So go ahead and
+                            enjoy, dream, and create. The sky is the limit..."
+                />
             </div>
         </div>
     )
