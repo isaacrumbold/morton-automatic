@@ -18,7 +18,6 @@ export const Contact = () => {
                 subtitle="Let us be a part of your next project"
                 image={contact_bg}
                 alt="contact banner"
-                top={400}
             />
 
             <div className="mt-[600px] flex h-fit w-full justify-center">
