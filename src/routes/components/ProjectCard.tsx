@@ -1,10 +1,18 @@
 import { useState } from 'react'
-import image from '../images/DSC_4228.jpg'
-import image2 from '../images/IMG_1793.jpg'
 import { ChevronRightIcon, ChevronLeftIcon } from '@heroicons/react/24/solid'
 
-export const ProjectCard = () => {
-    const images = [image, image2]
+type ProjectCardProps = {
+    imgArray: string[]
+    title: string
+    description?: string
+}
+
+export const ProjectCard = ({
+    imgArray,
+    title,
+    description,
+}: ProjectCardProps) => {
+    const images = imgArray
     const [currentImage, setCurrentImage] = useState(images[0])
 
     const moveLeft = () => {
@@ -26,29 +34,31 @@ export const ProjectCard = () => {
     }
 
     return (
-        <div className="sp mx-10 mb-5 flex w-5/6 text-white">
-            <div className=" h-fit w-1/2 max-lg:mb-2">
+        <div className="animate-fadeIn bg-whit mb-8 flex w-5/6 flex-col items-center rounded-xl  bg-white py-4 shadow-2xl">
+            <div className=" relative w-5/6 max-w-2xl">
                 <img
+                    id="image"
                     src={currentImage}
                     alt="picture"
-                    className=" w-full rounded-md object-cover "
+                    className="  h-full w-full rounded-md from-transparent object-cover"
                 />
 
-                <div className=" flex justify-between">
+                <div className="absolute bottom-0 flex w-full justify-between">
                     <ChevronLeftIcon
-                        className=" h-10 w-auto rounded-full border-2 border-primary text-primary hover:cursor-pointer"
+                        className=" m-1 h-10 w-auto rounded-full border-2 border-primary bg-white text-primary transition-all duration-300 hover:cursor-pointer hover:bg-primary hover:text-white"
                         onClick={moveLeft}
                     />
                     <ChevronRightIcon
-                        className="h-10 w-auto rounded-full border-2 border-primary text-primary hover:cursor-pointer"
+                        className="m-1 h-10 w-auto rounded-full border-2 border-primary bg-white text-primary transition-all duration-300 hover:cursor-pointer hover:bg-primary hover:text-white"
                         onClick={moveRight}
                     />
                 </div>
             </div>
-            <div className=" mx-1 flex w-1/2  flex-col justify-end">
-                <h1 className="mb-3 flex h-3/4 items-center rounded-e-md bg-gradient-to-r from-primary to-white px-4 text-xl font-bold">
-                    CAT Control Panel for Things
+            <div className=" mx-8 my-4">
+                <h1 className=" mb-3 text-xl font-semibold text-primary">
+                    {title}
                 </h1>
+                <p>{description}</p>
             </div>
         </div>
     )
