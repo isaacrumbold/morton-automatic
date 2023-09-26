@@ -74,7 +74,7 @@ export const ProjectSection = ({
                 </div>
             </div>
             <div
-                className={`flex h-fit w-11/12 max-w-6xl flex-col items-center border-l-4 border-primary bg-slate-100 py-6 ${isOpen.css} `}
+                className={`flex h-fit max-w-6xl animate-fadeIn flex-col items-center border-primary bg-slate-100 py-6 lg:w-11/12 lg:border-l-4 ${isOpen.css} `}
             >
                 <ProjectCard
                     imgArray={testImages}
