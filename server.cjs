@@ -1,8 +1,13 @@
-var express = require('express')
-var ViteExpress = require('vite-express')
+const express = require('express')
+const ViteExpress = require('vite-express')
 
 const app = express()
 
-app.get('/message', (_, res) => res.send('Hello from express!'))
+const port = process.env.PORT || 3000
 
-ViteExpress.listen(app, 3000, () => console.log('Server is listening...'))
+app.get('/maeco/', (req, res) => {
+    res.set('Content-Type', 'text/html')
+    res.sendFile(__dirname + '/index.html')
+})
+
+ViteExpress.listen(app, port, () => console.log('Server is listening...'))
