@@ -11,6 +11,12 @@ type ProjectSectionProps = {
     link?: string // I will add in an extra link later
     alt: string
     flipped?: boolean
+    examples?: {
+        exmpId: number
+        exmpTitle: string
+        exmpDescription: string
+        exmpPicsPath: string
+    }[]
 }
 
 type IsOpenType = {
@@ -26,8 +32,8 @@ export const ProjectSection = ({
     description,
     alt,
     flipped = false,
+    examples,
 }: ProjectSectionProps) => {
-    // console.log(images)
     const [isOpen, setIsOpen] = useState<IsOpenType>({
         open: false,
         css: 'hidden',
@@ -76,27 +82,16 @@ export const ProjectSection = ({
             <div
                 className={`flex h-fit max-w-6xl animate-fadeIn flex-col items-center border-primary bg-slate-100 py-6 lg:w-11/12 lg:border-l-4 ${isOpen.css} `}
             >
-                <ProjectCard
-                    imgArray={testImages}
-                    title="Project 1"
-                    description="Here would be a great place to describe the project.
-                            It can be a very long description or it can be
-                            short, simple, and to the point. I mean that is the
-                            whole point of this part, that YOU can create it,
-                            edit it and make it to your liking. So go ahead and
-                            enjoy, dream, and create. The sky is the limit..."
-                />
-                <ProjectCard imgArray={testImages} title="Project 1" />
-                <ProjectCard
-                    imgArray={testImages}
-                    title="Project 1"
-                    description="Here would be a great place to describe the project.
-                            It can be a very long description or it can be
-                            short, simple, and to the point. I mean that is the
-                            whole point of this part, that YOU can create it,
-                            edit it and make it to your liking. So go ahead and
-                            enjoy, dream, and create. The sky is the limit..."
-                />
+                {examples?.map((ex) => {
+                    return (
+                        <ProjectCard
+                            key={ex.exmpId}
+                            imgArray={testImages}
+                            title={ex.exmpTitle}
+                            description={ex.exmpDescription}
+                        />
+                    )
+                })}
             </div>
         </div>
     )

@@ -3,6 +3,7 @@ import { ProjectSection } from './components/ProjectSection'
 import portfolio_banner from './images/bg-2.jpg'
 import panel from './images/project_images_1/DSC_4228.jpg'
 import tester from './images/project_images_1/IMG_1793.jpg'
+import projects from '../../../editor/projects.json'
 
 export const Portfolio = () => {
     return (
@@ -14,30 +15,21 @@ export const Portfolio = () => {
                 alt="home banner"
                 imageClass="translate-y-52"
             />
+
             <div className="mt-[600px] flex h-fit w-full flex-col items-center pt-16">
-                <ProjectSection
-                    image={panel}
-                    title="Project 1"
-                    description=" Here would be a great place to describe the project.
-                            It can be a very long description or it can be
-                            short, simple, and to the point. I mean that is the
-                            whole point of this part, that YOU can create it,
-                            edit it and make it to your liking. So go ahead and
-                            enjoy, dream, and create. The sky is the limit..."
-                    alt="panel"
-                />
-                <ProjectSection
-                    image={tester}
-                    title="Project 2"
-                    description=" Here would be a great place to describe the project.
-                            It can be a very long description or it can be
-                            short, simple, and to the point. I mean that is the
-                            whole point of this part, that YOU can create it,
-                            edit it and make it to your liking. So go ahead and
-                            enjoy, dream, and create. The sky is the limit..."
-                    alt="panel"
-                    flipped={true}
-                />
+                {projects.map((project) => {
+                    return (
+                        <ProjectSection
+                            key={project.projId}
+                            image={tester}
+                            title={project.projTitle}
+                            description={project.projDescription}
+                            alt="panel"
+                            flipped={projects.indexOf(project) % 2 === 0}
+                            examples={project.examples}
+                        />
+                    )
+                })}
             </div>
         </div>
     )
