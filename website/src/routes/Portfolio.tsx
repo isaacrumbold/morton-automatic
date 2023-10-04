@@ -1,7 +1,7 @@
 import { Banner } from './components/Banner'
 import { ProjectSection } from './components/ProjectSection'
 import portfolio_banner from './images/bg-2.jpg'
-import panel from './images/project_images_1/DSC_4228.jpg'
+// import panel from './images/project_images_1/DSC_4228.jpg'
 import tester from './images/project_images_1/IMG_1793.jpg'
 import projects from '../../../editor/projects.json'
 
