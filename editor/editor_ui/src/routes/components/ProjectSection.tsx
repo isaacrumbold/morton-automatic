@@ -11,7 +11,7 @@ type ProjectSectionProps = {
     link?: string // I will add in an extra link later
     alt: string
     flipped?: boolean
-    examples?: {
+    examples: {
         exmpId: number
         exmpTitle: string
         exmpDescription: string
@@ -62,37 +62,41 @@ export const ProjectSection = ({
                         {title}
                     </h1>
                     <p className=" text-gray-700">{description}</p>
-                    <button
-                        className={`group mt-6 w-36 rounded-md border-2 border-primary py-1 text-lg text-primary transition-all duration-500  hover:w-44 hover:cursor-pointer hover:bg-primary hover:text-white ${
-                            isOpen.open ? 'w-44 bg-primary text-white' : ''
-                        }`}
-                        onClick={toggleOpen}
-                    >
-                        Examples
-                        <ChevronRightIcon
-                            className={`ml-2 inline-block h-5 text-primary  transition-all  duration-300   ${
-                                isOpen.open
-                                    ? 'rotate-90 text-white'
-                                    : 'opacity-0 delay-200 group-hover:text-white group-hover:opacity-100'
+                    {examples.length !== 0 && (
+                        <button
+                            className={`group mt-6 w-36 rounded-md border-2 border-primary py-1 text-lg text-primary transition-all duration-500  hover:w-44 hover:cursor-pointer hover:bg-primary hover:text-white ${
+                                isOpen.open ? 'w-44 bg-primary text-white' : ''
                             }`}
-                        />
-                    </button>
+                            onClick={toggleOpen}
+                        >
+                            Examples
+                            <ChevronRightIcon
+                                className={`ml-2 inline-block h-5 text-primary  transition-all  duration-300   ${
+                                    isOpen.open
+                                        ? 'rotate-90 text-white'
+                                        : 'opacity-0 delay-200 group-hover:text-white group-hover:opacity-100'
+                                }`}
+                            />
+                        </button>
+                    )}
                 </div>
             </div>
-            <div
-                className={`flex h-fit max-w-6xl animate-fadeIn flex-col items-center border-primary bg-slate-100 py-6 lg:w-11/12 lg:border-l-4 ${isOpen.css} `}
-            >
-                {examples?.map((ex) => {
-                    return (
-                        <ProjectCard
-                            key={ex.exmpId}
-                            imgArray={testImages}
-                            title={ex.exmpTitle}
-                            description={ex.exmpDescription}
-                        />
-                    )
-                })}
-            </div>
+            {examples.length !== 0 && (
+                <div
+                    className={`flex h-fit max-w-6xl animate-fadeIn flex-col items-center border-primary bg-slate-100 py-6 lg:w-11/12 lg:border-l-4 ${isOpen.css} `}
+                >
+                    {examples?.map((ex) => {
+                        return (
+                            <ProjectCard
+                                key={ex.exmpId}
+                                imgArray={testImages}
+                                title={ex.exmpTitle}
+                                description={ex.exmpDescription}
+                            />
+                        )
+                    })}
+                </div>
+            )}
         </div>
     )
 }
