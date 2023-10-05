@@ -3,12 +3,12 @@ import { mode } from '../Editor'
 
 type ProjectEditorProps = {
     mode: mode
-    currentProjs: any
+    currentProjs: ProjectArraySchema
     sectionType: 'project' | 'example'
     showId: boolean
 }
 
-type ProjectArraySchema = {
+export type ProjectArraySchema = {
     projId: number
     projTitle: string
     projDescription: string
@@ -21,28 +21,33 @@ type exampleSchema = {
     exmpDescription: string
 }
 
+type currentSelected = {
+    id: number
+    title: string
+    desc?: string
+}
 export const ProjectEditor = ({
     mode,
     currentProjs,
     sectionType,
     showId,
 }: ProjectEditorProps) => {
-    const [projId, setProjId] = useState<number | undefined>()
-    const [projTitle, setProjTitle] = useState<string>()
-    const [projDesc, setProjDesc] = useState<string | undefined>()
+    const [projId, setProjId] = useState<number | undefined>(undefined)
+    const [projTitle, setProjTitle] = useState<string>('')
+    const [projDesc, setProjDesc] = useState<string | undefined>('')
     // const [projPicture, setProjPicture] = useState<any>()
-    const [selectedProj, setSelectedProj] = useState<any>()
+    const [selectedProj, setSelectedProj] = useState<
+        currentSelected | undefined
+    >()
     const form = document.getElementById('projForm') as HTMLFormElement
-
-    useEffect(() => {
-        if (selectedProj !== undefined) {
-            setSelectedProj(undefined)
-            form.reset()
-        }
-    }, [mode])
     const submitForm = (e: any) => {
         e.preventDefault()
         form.reset()
+
+        setSelectedProj(undefined)
+        setProjId(undefined)
+        setProjTitle('')
+        setProjDesc('')
 
         if (mode === 'update') {
             update(
@@ -68,25 +73,69 @@ export const ProjectEditor = ({
             ).then((res) => res !== undefined && alert(`Status: ${res}`))
         }
     }
+    const onSelectId = (e: any) => {
+        if (e.target.value === '') {
+            setSelectedProj(undefined)
+            setProjId(undefined)
+            setProjTitle('')
+            setProjDesc('')
+        }
+        if (sectionType === 'project') {
+            setProjId(Number(e.target.value))
+            const i = currentProjs.findIndex(
+                (proj: any) => proj.projId === Number(e.target.value)
+            )
+            if (i !== -1) {
+                setSelectedProj({
+                    id: currentProjs[i].projId,
+                    title: currentProjs[i].projTitle,
+                    desc: currentProjs[i].projDescription,
+                })
+                setProjId(currentProjs[i].projId)
+                setProjTitle(currentProjs[i].projTitle)
+                setProjDesc(currentProjs[i].projDescription)
+            }
+        } else {
+            setProjId(Number(e.target.value))
+            for (let i = 0; i < currentProjs.length; i++) {
+                const example: exampleSchema | undefined = currentProjs[
+                    i
+                ].examples.find(
+                    (ex: exampleSchema) => ex.exmpId === Number(e.target.value)
+                )
+
+                if (example) {
+                    setSelectedProj({
+                        id: example.exmpId,
+                        title: example.exmpTitle,
+                        desc: example.exmpDescription,
+                    })
+                    setProjId(example.exmpId)
+                    setProjTitle(example.exmpTitle)
+                    setProjDesc(example.exmpDescription)
+                }
+            }
+        }
+    }
+    useEffect(() => {
+        setSelectedProj(undefined)
+        form && form.reset()
+        setProjId(undefined)
+        setProjTitle('')
+        setProjDesc('')
+    }, [mode, sectionType])
+
+    // console.log(selectedProj)
+    // console.log('id ' + projId)
+    // console.log('title ' + projTitle)
+    // console.log('desc ' + projDesc)
 
     return (
         <form className="m-4 space-y-5" id="projForm" onSubmit={submitForm}>
             {showId && (
                 <div className="flex flex-col">
                     <label htmlFor="id">Id:</label>
-                    <select
-                        name="id"
-                        onChange={(e) => {
-                            setProjId(Number(e.target.value))
-                            setSelectedProj(
-                                currentProjs.find(
-                                    (proj: any) =>
-                                        proj.projId === Number(e.target.value)
-                                )
-                            )
-                        }}
-                        required
-                    >
+                    <select name="id" onChange={(e) => onSelectId(e)} required>
                         <option value={''}>none</option>
 
                         {sectionType === 'example' && mode !== 'create'
@@ -128,29 +177,52 @@ export const ProjectEditor = ({
                             }}
                             required
                             defaultValue={
-                                mode === 'update' && selectedProj !== undefined
-                                    ? selectedProj.projTitle
+                                mode === 'update' && selectedProj
+                                    ? projTitle
                                     : ''
                             }
                         />
                     </div>
-                    <div className="flex flex-col">
-                        <label htmlFor="desc">description:</label>
-                        <textarea
-                            name="desc"
-                            cols={60}
-                            rows={5}
-                            placeholder="Optional description"
-                            onChange={(e) => {
-                                setProjDesc(e.target.value)
-                            }}
-                            defaultValue={
-                                mode === 'update' && selectedProj !== undefined
-                                    ? selectedProj.projDescription
-                                    : ''
-                            }
-                        />
-                    </div>
+                    {sectionType === 'project' ? (
+                        <div className="flex flex-col">
+                            <label htmlFor="desc">description:</label>
+                            <textarea
+                                name="desc"
+                                cols={60}
+                                rows={5}
+                                placeholder="Required description"
+                                onChange={(e) => {
+                                    setProjDesc(e.target.value)
+                                }}
+                                defaultValue={
+                                    mode === 'update' &&
+                                    selectedProj !== undefined
+                                        ? projDesc
+                                        : ''
+                                }
+                                required
+                            />
+                        </div>
+                    ) : (
+                        <div className="flex flex-col">
+                            <label htmlFor="desc">description:</label>
+                            <textarea
+                                name="desc"
+                                cols={60}
+                                rows={5}
+                                placeholder="Optional description"
+                                onChange={(e) => {
+                                    setProjDesc(e.target.value)
+                                }}
+                                defaultValue={
+                                    mode === 'update' &&
+                                    selectedProj !== undefined
+                                        ? projDesc
+                                        : ''
+                                }
+                            />
+                        </div>
+                    )}
                     {false && (
                         <div className="flex flex-col">
                             <label htmlFor="picture">

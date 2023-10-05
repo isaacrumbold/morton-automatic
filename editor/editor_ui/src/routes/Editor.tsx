@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import projects from '../../../projects.json'
 import { EditorMode } from './components/EditorMode'
 import { ProjectEditor } from './components/ProjectEditor'
+import { ProjectArraySchema } from './components/ProjectEditor'
 
 export type mode = 'create' | 'delete' | 'update'
 type section = 'project' | 'example'
@@ -69,8 +70,6 @@ export const Editor = () => {
                         })}
                     </div>
                 </div>
-
-                {/* editing area */}
                 <div className="flex h-full w-full flex-col">
                     <div className="flex h-fit w-fit">
                         <div className="flex border-b border-r border-black py-1">
@@ -120,7 +119,7 @@ export const Editor = () => {
                     <div className="flex h-full w-full">
                         <ProjectEditor
                             mode={mode}
-                            currentProjs={projects}
+                            currentProjs={projects as ProjectArraySchema}
                             sectionType={sectionType}
                             showId={showId}
                         />
