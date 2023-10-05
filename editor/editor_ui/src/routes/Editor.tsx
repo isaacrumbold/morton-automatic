@@ -9,27 +9,24 @@ type section = 'project' | 'example'
 export const Editor = () => {
     const [mode, setMode] = useState<mode>('create')
     const [sectionType, setSectionType] = useState<section>('project')
-    const [selected, setSelected] = useState<number>(0)
-    const [editorArea, setEditorArea] = useState<any>(null)
+    const [showId, setShowId] = useState<boolean>(false)
 
     const modeChanger = (mode: mode) => {
         setMode(mode)
-        setSelected(0)
     }
 
     const sectionChanger = (section: section) => {
         setSectionType(section)
-        setSelected(0)
     }
 
     useEffect(() => {
-        const section = getSection(sectionType, selected)
-        if (section) {
-            setEditorArea(section)
+        if (mode === 'create' && sectionType === 'project') {
+            setShowId(false)
         } else {
-            setEditorArea(null)
+            setShowId(true)
         }
-    }, [mode, sectionType, selected])
+    }, [mode, sectionType])
+
     return (
         <div className=" h-full bg-slate-200">
             <h1 className=" border-y-2 border-black py-3 text-center text-2xl">
@@ -47,41 +44,24 @@ export const Editor = () => {
                                     className=" mx-2 mt-4 flex flex-col border border-black py-1"
                                     key={`${project.projId} - ${project.projTitle}`}
                                 >
-                                    <button
-                                        onClick={() => {
-                                            setSelected(project.projId)
-                                        }}
+                                    <div
                                         className={`ml-2 w-fit border border-black px-1 ${
                                             sectionType === 'project' &&
                                             mode !== 'create' &&
-                                            selected !== project.projId
-                                                ? 'bg-orange-100 '
-                                                : ' '
-                                        } ${
-                                            selected === project.projId
-                                                ? 'bg-orange-400 text-white'
-                                                : ''
+                                            'bg-orange-100 '
+                                        } 
                                         }`}
-                                    >{`${project.projId} - ${project.projTitle}`}</button>
+                                    >{`${project.projId} - ${project.projTitle}`}</div>
                                     {project.examples.map((example) => {
                                         return (
-                                            <button
-                                                onClick={() => {
-                                                    setSelected(example.exmpId)
-                                                }}
+                                            <div
                                                 className={`ml-6 mt-2 w-fit border border-black px-1 ${
                                                     sectionType === 'example' &&
                                                     mode !== 'create' &&
-                                                    selected !== example.exmpId
-                                                        ? 'bg-orange-100 '
-                                                        : ' '
-                                                } ${
-                                                    selected === example.exmpId
-                                                        ? 'bg-orange-400 text-white'
-                                                        : ''
-                                                }`}
+                                                    'bg-orange-100 '
+                                                } `}
                                                 key={`${example.exmpId} - ${example.exmpTitle}`}
-                                            >{`${example.exmpId} - ${example.exmpTitle}`}</button>
+                                            >{`${example.exmpId} - ${example.exmpTitle}`}</div>
                                         )
                                     })}
                                 </div>
@@ -113,8 +93,8 @@ export const Editor = () => {
                         </div>
                         <div className="mx-4 flex border-x border-b border-black py-1">
                             <h1>Section:</h1>
-                            <div>
-                                <button
+                            <div className="flex">
+                                <div
                                     className={`mx-3 border border-black ${
                                         sectionType === 'project'
                                             ? 'bg-orange-400 text-white'
@@ -123,8 +103,8 @@ export const Editor = () => {
                                     onClick={() => sectionChanger('project')}
                                 >
                                     project
-                                </button>
-                                <button
+                                </div>
+                                <div
                                     className={`mx-3 border border-black ${
                                         sectionType === 'example'
                                             ? 'bg-orange-400 text-white'
@@ -133,38 +113,20 @@ export const Editor = () => {
                                     onClick={() => sectionChanger('example')}
                                 >
                                     example
-                                </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div className="flex h-full w-full">
-                        {sectionType === 'project' && (
-                            <ProjectEditor
-                                mode={mode}
-                                currentProjs={projects}
-                            />
-                        )}
+                        <ProjectEditor
+                            mode={mode}
+                            currentProjs={projects}
+                            sectionType={sectionType}
+                            showId={showId}
+                        />
                     </div>
                 </div>
             </div>
         </div>
     )
-}
-
-const getSection = (sectionType: section, id: number) => {
-    if (sectionType === 'project') {
-        return projects.find((project) => project.projId === id)
-    }
-
-    for (let i = 0; i < projects.length; i++) {
-        const project = projects[i]
-        const example = project.examples.find(
-            (example) => example.exmpId === id
-        )
-        if (example) {
-            return example
-        }
-    }
-
-    return null
 }
