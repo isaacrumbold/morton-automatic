@@ -3,6 +3,7 @@ import projects from '../../../projects.json'
 import { EditorMode } from './components/EditorMode'
 import { ProjectEditor } from './components/ProjectEditor'
 import { ProjectArraySchema } from './components/ProjectEditor'
+import { ExampleSchema } from './components/ProjectEditor'
 
 export type mode = 'create' | 'delete' | 'update'
 type section = 'project' | 'example'
@@ -53,18 +54,21 @@ export const Editor = () => {
                                         } 
                                         }`}
                                     >{`${project.projId} - ${project.projTitle}`}</div>
-                                    {project.examples.map((example) => {
-                                        return (
-                                            <div
-                                                className={`ml-6 mt-2 w-fit border border-black px-1 ${
-                                                    sectionType === 'example' &&
-                                                    mode !== 'create' &&
-                                                    'bg-orange-100 '
-                                                } `}
-                                                key={`${example.exmpId} - ${example.exmpTitle}`}
-                                            >{`${example.exmpId} - ${example.exmpTitle}`}</div>
-                                        )
-                                    })}
+                                    {project.examples.map(
+                                        (example: ExampleSchema) => {
+                                            return (
+                                                <div
+                                                    className={`ml-6 mt-2 w-fit border border-black px-1 ${
+                                                        sectionType ===
+                                                            'example' &&
+                                                        mode !== 'create' &&
+                                                        'bg-orange-100 '
+                                                    } `}
+                                                    key={`${example.exmpId} - ${example.exmpTitle}`}
+                                                >{`${example.exmpId} - ${example.exmpTitle}`}</div>
+                                            )
+                                        }
+                                    )}
                                 </div>
                             )
                         })}
