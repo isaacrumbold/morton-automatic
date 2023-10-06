@@ -24,7 +24,6 @@ app.post("/api", (req, res) => {
   res.json({
     message: "we got your message",
   });
-  console.log(req.body);
 
   fs.writeFile("./projects.json", JSON.stringify(req.body), (err) => {
     if (err) {

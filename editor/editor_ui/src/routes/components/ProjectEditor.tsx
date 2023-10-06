@@ -12,10 +12,10 @@ export type ProjectArraySchema = {
     projId: number
     projTitle: string
     projDescription: string
-    examples: exampleSchema[] | any[]
+    examples: ExampleSchema[] | any[]
 }[]
 
-type exampleSchema = {
+export type ExampleSchema = {
     exmpId: number
     exmpTitle: string
     exmpDescription: string
@@ -98,10 +98,10 @@ export const ProjectEditor = ({
         } else {
             setProjId(Number(e.target.value))
             for (let i = 0; i < currentProjs.length; i++) {
-                const example: exampleSchema | undefined = currentProjs[
+                const example: ExampleSchema | undefined = currentProjs[
                     i
                 ].examples.find(
-                    (ex: exampleSchema) => ex.exmpId === Number(e.target.value)
+                    (ex: ExampleSchema) => ex.exmpId === Number(e.target.value)
                 )
 
                 if (example) {
@@ -135,7 +135,7 @@ export const ProjectEditor = ({
             {showId && (
                 <div className="flex flex-col">
                     <label htmlFor="id">Id:</label>
-                    <select name="id" onChange={(e) => onSelectId(e)} required>
+                    <select id="id" onChange={(e) => onSelectId(e)} required>
                         <option value={''}>none</option>
 
                         {sectionType === 'example' && mode !== 'create'
@@ -170,7 +170,7 @@ export const ProjectEditor = ({
                         <label htmlFor="title">Title:</label>
                         <input
                             type="text"
-                            name="title"
+                            id="title"
                             placeholder="Required title"
                             onChange={(e) => {
                                 setProjTitle(e.target.value)
@@ -187,7 +187,7 @@ export const ProjectEditor = ({
                         <div className="flex flex-col">
                             <label htmlFor="desc">description:</label>
                             <textarea
-                                name="desc"
+                                id="desc"
                                 cols={60}
                                 rows={5}
                                 placeholder="Required description"
@@ -207,7 +207,7 @@ export const ProjectEditor = ({
                         <div className="flex flex-col">
                             <label htmlFor="desc">description:</label>
                             <textarea
-                                name="desc"
+                                id="desc"
                                 cols={60}
                                 rows={5}
                                 placeholder="Optional description"
@@ -230,7 +230,7 @@ export const ProjectEditor = ({
                             </label>
                             <input
                                 type="file"
-                                name="picture"
+                                id="picture"
                                 accept=".jpg, .png"
                                 required
                                 // onChange={(e) => {

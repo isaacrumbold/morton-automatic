@@ -8,10 +8,10 @@ import { Portfolio } from './routes/Portfolio'
 import { Editor } from './routes/Editor'
 import projects from '../../projects.json'
 
-export const links = [
-    { to: '/', name: 'Editor', id: 1 },
-    projects.length !== 0 && { to: '/portfolio', name: 'portfolio', id: 2 },
-]
+export const links = [{ to: '/', name: 'Editor', id: 1 }]
+
+projects.length !== 0 &&
+    links.push({ to: '/portfolio', name: 'portfolio', id: 2 })
 
 function Root() {
     const { pathname } = useLocation()
