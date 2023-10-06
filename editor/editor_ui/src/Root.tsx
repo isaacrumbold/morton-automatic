@@ -6,10 +6,11 @@ import { Footer } from './components/Footer'
 import { useEffect } from 'react'
 import { Portfolio } from './routes/Portfolio'
 import { Editor } from './routes/Editor'
+import projects from '../../projects.json'
 
 export const links = [
-    { to: '/', name: 'Portfolio', id: 1 },
-    { to: '/editor', name: 'Editor', id: 2 },
+    { to: '/', name: 'Editor', id: 1 },
+    projects.length !== 0 && { to: '/portfolio', name: 'portfolio', id: 2 },
 ]
 
 function Root() {
@@ -22,8 +23,10 @@ function Root() {
             <NavBar />
             <Routes>
                 <Route path="/" element={<Layout />} />
-                <Route index element={<Portfolio />} />
-                <Route path="/editor" element={<Editor />} />
+                <Route index element={<Editor />} />
+                {projects.length !== 0 && (
+                    <Route path="/portfolio" element={<Portfolio />} />
+                )}
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />
