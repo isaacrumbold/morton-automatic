@@ -43,9 +43,13 @@ export const ProjectEditor = ({
 
     const form = document.getElementById('projForm') as HTMLFormElement
 
+    const imageAmountError = () => {
+        form.reset()
+        alert('Max 6 images, please select only 6 at most.')
+        setProjPicture(undefined)
+    }
     const submitForm = async (e: any) => {
         e.preventDefault()
-
         if (mode === 'update') {
             update(
                 currentProjs,
@@ -131,6 +135,10 @@ export const ProjectEditor = ({
         setProjDesc('')
         setProjPicture(undefined)
     }, [mode, sectionType])
+
+    if (projPicture) {
+        console.log(projPicture.item(0))
+    }
 
     return (
         <form className="m-4 space-y-5" id="projForm" onSubmit={submitForm}>
@@ -225,7 +233,7 @@ export const ProjectEditor = ({
                             />
                         </div>
                     )}
-                    {
+                    {sectionType === 'project' ? (
                         <div className="flex flex-col">
                             <label htmlFor="picture">
                                 Upload picture (.jpg or .png only):
@@ -240,7 +248,25 @@ export const ProjectEditor = ({
                                 }}
                             />
                         </div>
-                    }
+                    ) : (
+                        <div className="flex flex-col">
+                            <label htmlFor="picture">
+                                Upload up to 6 pictures (.jpg or .png only):
+                            </label>
+                            <input
+                                multiple
+                                type="file"
+                                id="picture"
+                                accept=".jpg, .png"
+                                required
+                                onChange={(e) => {
+                                    e.target.files && e.target.files.length > 6
+                                        ? imageAmountError()
+                                        : setProjPicture(e.target.files)
+                                }}
+                            />
+                        </div>
+                    )}
                 </>
             )}
             <button
@@ -385,11 +411,13 @@ const create = async (
                 const projIndex = projects.findIndex(
                     (proj) => proj.projId === id
                 )
+                const exampleId = makeExmpId(projIndex, projects)
                 projects[projIndex].examples.push({
-                    exmpId: makeExmpId(projIndex, projects),
+                    exmpId: exampleId,
                     exmpTitle: title,
                     exmpDescription: desc ? desc : '',
                 })
+                imagefetch(image, sectionType, exampleId)
             }
     }
     const response = await fetch('http://localhost:3000/api', {
@@ -409,12 +437,13 @@ const imagefetch = async (
     sectionType: 'project' | 'example',
     id: number
 ) => {
-    const formData = new FormData()
-    formData.append('id', id.toString())
-    formData.append('image', image[0])
-
+    let status: number | undefined
     switch (sectionType) {
         case 'project':
+            const formData = new FormData()
+            formData.append('id', id.toString())
+            formData.append('image', image[0])
+
             const result = await axios.post(
                 'http://localhost:3000/projectimage',
                 formData,
@@ -424,8 +453,29 @@ const imagefetch = async (
                     },
                 }
             )
-            return result.status
+            status = result.status
+            break
+        case 'example':
+            for (let i = 0; i < image.length; i++) {}
+            const formData2 = new FormData()
+            formData2.append('id', id.toString())
+            for (let i = 0; i < image.length; i++) {
+                formData2.append('images', image[i])
+            }
+
+            const result2 = await axios.post(
+                'http://localhost:3000/exampleimages',
+                formData2,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            )
+            status = result2.status
+            break
     }
+    return status
 }
 
 const makeExmpId = (projIndex: number, projects: ProjectArraySchema) => {
