@@ -15,7 +15,6 @@ type ProjectSectionProps = {
         exmpId: number
         exmpTitle: string
         exmpDescription: string
-        exmpPicsPath: string
     }[]
 }
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import projects from '../../../projects.json'
+import jsonProjects from '../../../projects.json'
 import { EditorMode } from './components/EditorMode'
 import { ProjectEditor } from './components/ProjectEditor'
 import { ProjectArraySchema } from './components/ProjectEditor'
@@ -12,6 +12,9 @@ export const Editor = () => {
     const [mode, setMode] = useState<mode>('create')
     const [sectionType, setSectionType] = useState<section>('project')
     const [showId, setShowId] = useState<boolean>(false)
+    const [projects, setProjects] = useState<ProjectArraySchema | []>(
+        jsonProjects
+    )
 
     const modeChanger = (mode: mode) => {
         setMode(mode)
@@ -27,15 +30,16 @@ export const Editor = () => {
         } else {
             setShowId(true)
         }
-    }, [mode, sectionType])
+        setProjects(jsonProjects)
+    }, [mode, sectionType, jsonProjects])
 
     return (
-        <div className=" h-full bg-slate-200">
+        <div className=" h-fit bg-slate-200">
             <h1 className=" border-y-2 border-black py-3 text-center text-2xl">
                 Editor
             </h1>
-            <div className="flex h-full">
-                <div className="h-full w-1/4 border-r-2 border-black">
+            <div className="flex min-h-[500px]">
+                <div className="h-auto w-1/4 border-r-2 border-black">
                     <h1 className="mx-auto w-fit border-b border-black">
                         Projects
                     </h1>
@@ -98,7 +102,7 @@ export const Editor = () => {
                             <h1>Section:</h1>
                             <div className="flex">
                                 <div
-                                    className={`mx-3 border border-black ${
+                                    className={`mx-3 border border-black hover:cursor-pointer ${
                                         sectionType === 'project'
                                             ? 'bg-orange-400 text-white'
                                             : ''
@@ -108,7 +112,7 @@ export const Editor = () => {
                                     project
                                 </div>
                                 <div
-                                    className={`mx-3 border border-black ${
+                                    className={`mx-3 border border-black hover:cursor-pointer ${
                                         sectionType === 'example'
                                             ? 'bg-orange-400 text-white'
                                             : ''
