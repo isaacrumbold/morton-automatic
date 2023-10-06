@@ -3,7 +3,23 @@ const path = require("path");
 const app = express();
 const fs = require("fs");
 const cors = require("cors");
+const multer = require("multer");
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    console.log(req.body);
+    const path = `./uploads/${req.body.id}`;
+    fs.mkdirSync(path, { recursive: true });
+    cb(null, path);
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+app.use(express.json());
 app.use(cors());
 // const corsOptions = {
 //   origin: "http://localhost:1234/editor",
@@ -11,14 +27,10 @@ app.use(cors());
 // };
 
 app.use("/", express.static(path.join(__dirname + "/dist")));
-app.use(express.json());
-app.listen(3000, () => {
-  console.log("Application started and Listening on port 3000");
-});
-
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/editor_ui/dist/index.html");
 });
+// this will eventually server the editor UI
 
 app.post("/api", (req, res) => {
   res.json({
@@ -30,4 +42,16 @@ app.post("/api", (req, res) => {
       console.error(err);
     }
   });
+});
+// this will write and save the json file
+
+app.post("/projectimage", upload.single("image"), (req, res) => {
+  console.log(req.body);
+  res.json({
+    message: "image uploaded",
+  });
+});
+
+app.listen(3000, () => {
+  console.log("Application started and Listening on port 3000");
 });

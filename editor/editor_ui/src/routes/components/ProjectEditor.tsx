@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { mode } from '../Editor'
+import axios from 'axios'
 
 type ProjectEditorProps = {
     mode: mode
@@ -35,19 +36,15 @@ export const ProjectEditor = ({
     const [projId, setProjId] = useState<number | undefined>(undefined)
     const [projTitle, setProjTitle] = useState<string>('')
     const [projDesc, setProjDesc] = useState<string | undefined>('')
-    // const [projPicture, setProjPicture] = useState<any>()
+    const [projPicture, setProjPicture] = useState<any>()
     const [selectedProj, setSelectedProj] = useState<
         currentSelected | undefined
     >()
-    const form = document.getElementById('projForm') as HTMLFormElement
-    const submitForm = (e: any) => {
-        e.preventDefault()
-        form.reset()
 
-        setSelectedProj(undefined)
-        setProjId(undefined)
-        setProjTitle('')
-        setProjDesc('')
+    const form = document.getElementById('projForm') as HTMLFormElement
+
+    const submitForm = async (e: any) => {
+        e.preventDefault()
 
         if (mode === 'update') {
             update(
@@ -64,14 +61,23 @@ export const ProjectEditor = ({
             )
         }
         if (mode === 'create') {
-            create(
+            const cRes = await create(
                 currentProjs,
                 sectionType,
                 projTitle!,
+                projPicture,
                 projDesc,
                 projId
-            ).then((res) => res !== undefined && alert(`Status: ${res}`))
+            )
+
+            alert(`Status: ${cRes}`)
         }
+
+        setSelectedProj(undefined)
+        setProjId(undefined)
+        setProjTitle('')
+        setProjDesc('')
+        form.reset()
     }
     const onSelectId = (e: any) => {
         if (e.target.value === '') {
@@ -123,12 +129,8 @@ export const ProjectEditor = ({
         setProjId(undefined)
         setProjTitle('')
         setProjDesc('')
+        setProjPicture(undefined)
     }, [mode, sectionType])
-
-    // console.log(selectedProj)
-    // console.log('id ' + projId)
-    // console.log('title ' + projTitle)
-    // console.log('desc ' + projDesc)
 
     return (
         <form className="m-4 space-y-5" id="projForm" onSubmit={submitForm}>
@@ -223,7 +225,7 @@ export const ProjectEditor = ({
                             />
                         </div>
                     )}
-                    {false && (
+                    {
                         <div className="flex flex-col">
                             <label htmlFor="picture">
                                 Upload picture (.jpg or .png only):
@@ -233,12 +235,12 @@ export const ProjectEditor = ({
                                 id="picture"
                                 accept=".jpg, .png"
                                 required
-                                // onChange={(e) => {
-                                //     setProjPicture(e.target.files)
-                                // }}
+                                onChange={(e) => {
+                                    setProjPicture(e.target.files)
+                                }}
                             />
                         </div>
-                    )}
+                    }
                 </>
             )}
             <button
@@ -356,20 +358,24 @@ const create = async (
     projects: ProjectArraySchema,
     sectionType: 'project' | 'example',
     title: string,
+    image: any,
     desc?: string,
     id?: number
 ) => {
     switch (sectionType) {
         case 'project':
+            const aId =
+                projects.length === 0
+                    ? 1
+                    : projects[projects.length - 1].projId + 1
+
             projects.push({
-                projId:
-                    projects.length === 0
-                        ? 1
-                        : projects[projects.length - 1].projId + 1,
+                projId: aId,
                 projTitle: title,
                 projDescription: desc ? desc : '',
                 examples: [],
             })
+            imagefetch(image, sectionType, aId)
             break
         case 'example':
             if (id === undefined) {
@@ -396,6 +402,30 @@ const create = async (
 
     const status = await response.status
     return status
+}
+
+const imagefetch = async (
+    image: any,
+    sectionType: 'project' | 'example',
+    id: number
+) => {
+    const formData = new FormData()
+    formData.append('id', id.toString())
+    formData.append('image', image[0])
+
+    switch (sectionType) {
+        case 'project':
+            const result = await axios.post(
+                'http://localhost:3000/projectimage',
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            )
+            return result.status
+    }
 }
 
 const makeExmpId = (projIndex: number, projects: ProjectArraySchema) => {
