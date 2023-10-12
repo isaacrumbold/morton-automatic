@@ -46,9 +46,14 @@ app.post("/api", (req, res) => {
 // this will write and save the json file
 
 app.post("/projectimage", upload.single("image"), (req, res) => {
-  console.log(req.body);
   res.json({
     message: "image uploaded",
+  });
+});
+
+app.post("/exampleimages", upload.array("images", 6), (req, res) => {
+  res.json({
+    message: "images uploaded",
   });
 });
 
