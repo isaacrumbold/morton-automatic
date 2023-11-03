@@ -1,8 +1,8 @@
 import { ChevronRightIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
 import { ProjectCard } from './ProjectCard'
-import im1 from '../images/project_images_1/DSC_4228.jpg'
-import im2 from '../images/project_images_1/IMG_1793.jpg'
+import im1 from '/images/project_images_1/DSC_4228.jpg'
+import im2 from '/images/project_images_1/IMG_1793.jpg'
 
 type ProjectSectionProps = {
     image: string
@@ -44,6 +44,7 @@ export const ProjectSection = ({
             ? setIsOpen({ open: false, css: 'hidden' })
             : setIsOpen({ open: true, css: 'block' })
     }
+
     return (
         <div className="z-20 mb-16 flex h-fit flex-col items-center max-lg:mb-24">
             <div

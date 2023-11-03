@@ -5,6 +5,10 @@ const fs = require("fs");
 const cors = require("cors");
 const multer = require("multer");
 
+////////////////////////////////////////////
+const isProduction = false; //////////////// use this to set the path to write to json files
+////////////////////////////////////////////
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     console.log(req.body);
