@@ -1,1 +1,16 @@
-[{"projId":1,"projTitle":"My first Project","projDescription":"hello there ","examples":[{"exmpId":11,"exmpTitle":"my first example","exmpDescription":""}]},{"projId":2,"projTitle":"jfdkaaljfkdla;","projDescription":"feahehfihjidjjfklasj;ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffjdkaljfkdl;ajfiefjdkja;lfdaljfkdkdiennnf","examples":[{"exmpId":21,"exmpTitle":"ddddd","exmpDescription":"dddddd"}]}]
+[
+  {
+    "projId": 3,
+    "projTitle": "newbee",
+    "projDescription": "jdkal;",
+    "examples": [
+      { "exmpId": 31, "exmpTitle": "dfafda", "exmpDescription": "fdafdas" }
+    ]
+  },
+  {
+    "projId": 4,
+    "projTitle": "proj 2",
+    "projDescription": "proj 2",
+    "examples": []
+  }
+]
