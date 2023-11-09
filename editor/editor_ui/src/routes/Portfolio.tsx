@@ -1,19 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Banner } from './components/Banner'
 import { ProjectSection } from './components/ProjectSection'
-import portfolio_banner from '/images/bg-2.jpg'
-import tester from '/images/project_images_1/IMG_1793.jpg'
-
-const fetcher = async () => {
-    const res = await fetch('/json/test.json')
-    const data = await res.json()
-    return data
-}
+import portfolio_banner from '../assets/images/bg-2.jpg'
+import { getJson } from './Editor'
+import jsonUrl from '/json/projects.json?url'
 
 export const Portfolio = () => {
     const [projects, setProjects] = useState([])
     useEffect(() => {
-        fetcher().then((res) => setProjects(res))
+        getJson(jsonUrl).then((res) => setProjects(res))
     }, [])
 
     return (
@@ -31,7 +26,7 @@ export const Portfolio = () => {
                     return (
                         <ProjectSection
                             key={project.projId}
-                            image={tester}
+                            image="/images/portfolioImages/62936820-198C-4481-8DAB-1F3DA7A68698.jpg"
                             title={project.projTitle}
                             description={project.projDescription}
                             alt="panel"

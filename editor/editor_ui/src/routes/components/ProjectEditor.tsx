@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { mode } from '../Editor'
 import axios from 'axios'
 
@@ -13,6 +13,7 @@ export type ProjectArraySchema = {
     projId: number
     projTitle: string
     projDescription: string
+    projPicture: string
     examples: ExampleSchema[] | any[]
 }[]
 
@@ -20,6 +21,7 @@ export type ExampleSchema = {
     exmpId: number
     exmpTitle: string
     exmpDescription: string
+    exmpPictureArray: string[]
 }
 
 type currentSelected = {
@@ -36,26 +38,35 @@ export const ProjectEditor = ({
     const [projId, setProjId] = useState<number | undefined>(undefined)
     const [projTitle, setProjTitle] = useState<string>('')
     const [projDesc, setProjDesc] = useState<string | undefined>('')
-    const [projPicture, setProjPicture] = useState<any>()
+    const [projImage, setProjImage] = useState<string | string[]>('')
     const [selectedProj, setSelectedProj] = useState<
         currentSelected | undefined
     >()
-
     const form = document.getElementById('projForm') as HTMLFormElement
-
     const imageAmountError = () => {
         form.reset()
         alert('Max 6 images, please select only 6 at most.')
-        setProjPicture(undefined)
+        setProjImage('')
     }
+
+    const exampleArrayFunc = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const arr: string[] = []
+            for (let i = 0; i < e.target.files.length; i++) {
+                arr.push(e.target.files.item(i)?.name || '')
+            }
+            setProjImage(arr)
+        }
+    }
+
     const submitForm = async (e: any) => {
         e.preventDefault()
         if (mode === 'update') {
-            update(
+            updateMethod(
                 currentProjs,
                 sectionType,
-                projId!,
-                projTitle!,
+                projId as number,
+                projTitle,
                 projDesc
             ).then((res) => res !== undefined && alert(`Status: ${res}`))
         }
@@ -65,11 +76,11 @@ export const ProjectEditor = ({
             )
         }
         if (mode === 'create') {
-            const cRes = await create(
+            const cRes = await createMethod(
                 currentProjs,
                 sectionType,
-                projTitle!,
-                projPicture,
+                projTitle,
+                projImage,
                 projDesc,
                 projId
             )
@@ -82,6 +93,7 @@ export const ProjectEditor = ({
         setProjTitle('')
         setProjDesc('')
         form.reset()
+        location.reload()
     }
     const onSelectId = (e: any) => {
         if (e.target.value === '') {
@@ -133,12 +145,8 @@ export const ProjectEditor = ({
         setProjId(undefined)
         setProjTitle('')
         setProjDesc('')
-        setProjPicture(undefined)
+        setProjImage('')
     }, [mode, sectionType])
-
-    if (projPicture) {
-        console.log(projPicture.item(0))
-    }
 
     return (
         <form className="m-4 space-y-5" id="projForm" onSubmit={submitForm}>
@@ -233,40 +241,45 @@ export const ProjectEditor = ({
                             />
                         </div>
                     )}
-                    {sectionType === 'project' ? (
-                        <div className="flex flex-col">
-                            <label htmlFor="picture">
-                                Upload picture (.jpg or .png only):
-                            </label>
-                            <input
-                                type="file"
-                                id="picture"
-                                accept=".jpg, .png"
-                                required
-                                onChange={(e) => {
-                                    setProjPicture(e.target.files)
-                                }}
-                            />
-                        </div>
-                    ) : (
-                        <div className="flex flex-col">
-                            <label htmlFor="picture">
-                                Upload up to 6 pictures (.jpg or .png only):
-                            </label>
-                            <input
-                                multiple
-                                type="file"
-                                id="picture"
-                                accept=".jpg, .png"
-                                required
-                                onChange={(e) => {
-                                    e.target.files && e.target.files.length > 6
-                                        ? imageAmountError()
-                                        : setProjPicture(e.target.files)
-                                }}
-                            />
-                        </div>
-                    )}
+
+                    {mode !== 'update' &&
+                        (sectionType === 'project' ? (
+                            <div className="flex flex-col">
+                                <label htmlFor="picture">
+                                    Upload picture (.jpg or .png only):
+                                </label>
+                                <input
+                                    type="file"
+                                    id="picture"
+                                    accept=".jpg, .png"
+                                    required
+                                    onChange={(e) => {
+                                        setProjImage(
+                                            `${e.target.files?.item(0)?.name}`
+                                        )
+                                    }}
+                                />
+                            </div>
+                        ) : (
+                            <div className="flex flex-col">
+                                <label htmlFor="picture">
+                                    Upload up to 6 pictures (.jpg or .png only):
+                                </label>
+                                <input
+                                    multiple
+                                    type="file"
+                                    id="picture"
+                                    accept=".jpg, .png"
+                                    required
+                                    onChange={(e) => {
+                                        e.target.files &&
+                                        e.target.files.length <= 6
+                                            ? exampleArrayFunc(e)
+                                            : imageAmountError()
+                                    }}
+                                />
+                            </div>
+                        ))}
                 </>
             )}
             <button
@@ -279,7 +292,7 @@ export const ProjectEditor = ({
     )
 }
 
-const update = async (
+const updateMethod = async (
     projects: ProjectArraySchema,
     sectionType: 'project' | 'example',
     id: number,
@@ -299,6 +312,7 @@ const update = async (
                     projId: id,
                     projTitle: title,
                     projDescription: desc ? desc : '',
+                    projPicture: projects[projectIndex].projPicture,
                     examples: projects[projectIndex].examples,
                 })
             }
@@ -313,6 +327,8 @@ const update = async (
                         exmpId: id,
                         exmpTitle: title,
                         exmpDescription: desc ? desc : '',
+                        exmpPictureArray:
+                            projects[i].examples[exampleIndex].exmpPictureArray,
                     })
                 } else {
                     alert('ID not found')
@@ -380,11 +396,11 @@ const deleteMethod = async (
     return status
 }
 
-const create = async (
+const createMethod = async (
     projects: ProjectArraySchema,
     sectionType: 'project' | 'example',
     title: string,
-    image: any,
+    image: string | string[],
     desc?: string,
     id?: number
 ) => {
@@ -399,9 +415,10 @@ const create = async (
                 projId: aId,
                 projTitle: title,
                 projDescription: desc ? desc : '',
+                projPicture: image as string,
                 examples: [],
             })
-            imagefetch(image, sectionType, aId)
+            await imagefetch(image, sectionType, aId)
             break
         case 'example':
             if (id === undefined) {
@@ -416,6 +433,7 @@ const create = async (
                     exmpId: exampleId,
                     exmpTitle: title,
                     exmpDescription: desc ? desc : '',
+                    exmpPictureArray: image as string[],
                 })
                 imagefetch(image, sectionType, exampleId)
             }
