@@ -12,7 +12,8 @@ const isProduction = false; //////////////// use this to set the path to write t
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     console.log(req.body);
-    const path = `./uploads/${req.body.id}`;
+    // const path = `./editor_ui/public/portfolioImages/${req.body.id}`;
+    const path = `./RightHereTest/${req.body.id}`;
     fs.mkdirSync(path, { recursive: true });
     cb(null, path);
   },
@@ -30,32 +31,38 @@ app.use(cors());
 //   optionsSuccessStatus: 200,
 // };
 
+// this will eventually server the editor UI
 app.use("/", express.static(path.join(__dirname + "/dist")));
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/editor_ui/dist/index.html");
 });
-// this will eventually server the editor UI
 
+// this will write and save the json file
 app.post("/api", (req, res) => {
   res.json({
     message: "we got your message",
   });
 
-  fs.writeFile("./projects.json", JSON.stringify(req.body), (err) => {
-    if (err) {
-      console.error(err);
+  fs.writeFile(
+    "./editor_ui/public/json/projects.json",
+    JSON.stringify(req.body),
+    (err) => {
+      if (err) {
+        console.error(err);
+      }
     }
-  });
+  );
 });
-// this will write and save the json file
 
 app.post("/projectimage", upload.single("image"), (req, res) => {
+  console.log(req.body);
   res.json({
     message: "image uploaded",
   });
 });
 
 app.post("/exampleimages", upload.array("images", 6), (req, res) => {
+  console.log("example images uploaded");
   res.json({
     message: "images uploaded",
   });

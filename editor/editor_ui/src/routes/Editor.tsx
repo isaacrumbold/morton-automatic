@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import jsonProjects from '../../../projects.json'
+import jsonUrl from '/json/projects.json?url'
 import { EditorMode } from './components/EditorMode'
 import { ProjectEditor } from './components/ProjectEditor'
 import { ProjectArraySchema } from './components/ProjectEditor'
@@ -8,13 +8,17 @@ import { ExampleSchema } from './components/ProjectEditor'
 export type mode = 'create' | 'delete' | 'update'
 type section = 'project' | 'example'
 
+export async function getJson(aJsonUrl: string) {
+    const response = await fetch(aJsonUrl)
+    const file = await response.json()
+    return file
+}
+
 export const Editor = () => {
     const [mode, setMode] = useState<mode>('create')
     const [sectionType, setSectionType] = useState<section>('project')
     const [showId, setShowId] = useState<boolean>(false)
-    const [projects, setProjects] = useState<ProjectArraySchema | []>(
-        jsonProjects
-    )
+    const [projects, setProjects] = useState<ProjectArraySchema | []>([])
 
     const modeChanger = (mode: mode) => {
         setMode(mode)
@@ -30,8 +34,8 @@ export const Editor = () => {
         } else {
             setShowId(true)
         }
-        setProjects(jsonProjects)
-    }, [mode, sectionType, jsonProjects])
+        getJson(jsonUrl).then((res) => setProjects(res))
+    }, [mode, sectionType, getJson])
 
     return (
         <div className=" h-fit bg-slate-200">
