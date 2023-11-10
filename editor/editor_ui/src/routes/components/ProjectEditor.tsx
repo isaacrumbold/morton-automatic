@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { SyntheticEvent, useEffect, useState } from 'react'
 import { mode } from '../Editor'
 import axios from 'axios'
 
@@ -35,10 +35,10 @@ export const ProjectEditor = ({
     sectionType,
     showId,
 }: ProjectEditorProps) => {
-    const [projId, setProjId] = useState<number | undefined>(undefined)
-    const [projTitle, setProjTitle] = useState<string>('')
-    const [projDesc, setProjDesc] = useState<string | undefined>('')
-    const [projImage, setProjImage] = useState<string | string[]>('')
+    const [formId, setFormId] = useState<number | undefined>(undefined)
+    const [formTitle, setFormTitle] = useState<string>('')
+    const [formDesc, setFormDesc] = useState<string | undefined>('')
+    const [imageFile, setImageFile] = useState<File | File[]>()
     const [selectedProj, setSelectedProj] = useState<
         currentSelected | undefined
     >()
@@ -46,32 +46,32 @@ export const ProjectEditor = ({
     const imageAmountError = () => {
         form.reset()
         alert('Max 6 images, please select only 6 at most.')
-        setProjImage('')
+        setImageFile(undefined)
     }
 
     const exampleArrayFunc = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
-            const arr: string[] = []
+            const arr: File[] = []
             for (let i = 0; i < e.target.files.length; i++) {
-                arr.push(e.target.files.item(i)?.name || '')
+                arr.push(e.target.files[i])
             }
-            setProjImage(arr)
+            setImageFile(arr)
         }
     }
 
-    const submitForm = async (e: any) => {
-        e.preventDefault()
+    const submitForm = async (event: SyntheticEvent) => {
+        event.preventDefault()
         if (mode === 'update') {
             updateMethod(
                 currentProjs,
                 sectionType,
-                projId as number,
-                projTitle,
-                projDesc
+                formId as number,
+                formTitle,
+                formDesc
             ).then((res) => res !== undefined && alert(`Status: ${res}`))
         }
         if (mode === 'delete') {
-            deleteMethod(currentProjs, projId!, sectionType).then(
+            deleteMethod(currentProjs, formId!, sectionType).then(
                 (res) => res !== undefined && alert(`Status: ${res}`)
             )
         }
@@ -79,31 +79,31 @@ export const ProjectEditor = ({
             const cRes = await createMethod(
                 currentProjs,
                 sectionType,
-                projTitle,
-                projImage,
-                projDesc,
-                projId
+                formTitle,
+                imageFile,
+                formDesc,
+                formId
             )
 
             alert(`Status: ${cRes}`)
         }
 
         setSelectedProj(undefined)
-        setProjId(undefined)
-        setProjTitle('')
-        setProjDesc('')
+        setFormId(undefined)
+        setFormTitle('')
+        setFormDesc('')
         form.reset()
         location.reload()
     }
     const onSelectId = (e: any) => {
         if (e.target.value === '') {
             setSelectedProj(undefined)
-            setProjId(undefined)
-            setProjTitle('')
-            setProjDesc('')
+            setFormId(undefined)
+            setFormTitle('')
+            setFormDesc('')
         }
         if (sectionType === 'project') {
-            setProjId(Number(e.target.value))
+            setFormId(Number(e.target.value))
             const i = currentProjs.findIndex(
                 (proj: any) => proj.projId === Number(e.target.value)
             )
@@ -113,12 +113,12 @@ export const ProjectEditor = ({
                     title: currentProjs[i].projTitle,
                     desc: currentProjs[i].projDescription,
                 })
-                setProjId(currentProjs[i].projId)
-                setProjTitle(currentProjs[i].projTitle)
-                setProjDesc(currentProjs[i].projDescription)
+                setFormId(currentProjs[i].projId)
+                setFormTitle(currentProjs[i].projTitle)
+                setFormDesc(currentProjs[i].projDescription)
             }
         } else {
-            setProjId(Number(e.target.value))
+            setFormId(Number(e.target.value))
             for (let i = 0; i < currentProjs.length; i++) {
                 const example: ExampleSchema | undefined = currentProjs[
                     i
@@ -132,9 +132,9 @@ export const ProjectEditor = ({
                         title: example.exmpTitle,
                         desc: example.exmpDescription,
                     })
-                    setProjId(example.exmpId)
-                    setProjTitle(example.exmpTitle)
-                    setProjDesc(example.exmpDescription)
+                    setFormId(example.exmpId)
+                    setFormTitle(example.exmpTitle)
+                    setFormDesc(example.exmpDescription)
                 }
             }
         }
@@ -142,10 +142,10 @@ export const ProjectEditor = ({
     useEffect(() => {
         setSelectedProj(undefined)
         form && form.reset()
-        setProjId(undefined)
-        setProjTitle('')
-        setProjDesc('')
-        setProjImage('')
+        setFormId(undefined)
+        setFormTitle('')
+        setFormDesc('')
+        setImageFile(undefined)
     }, [mode, sectionType])
 
     return (
@@ -191,12 +191,12 @@ export const ProjectEditor = ({
                             id="title"
                             placeholder="Required title"
                             onChange={(e) => {
-                                setProjTitle(e.target.value)
+                                setFormTitle(e.target.value)
                             }}
                             required
                             defaultValue={
                                 mode === 'update' && selectedProj
-                                    ? projTitle
+                                    ? formTitle
                                     : ''
                             }
                         />
@@ -210,12 +210,12 @@ export const ProjectEditor = ({
                                 rows={5}
                                 placeholder="Required description"
                                 onChange={(e) => {
-                                    setProjDesc(e.target.value)
+                                    setFormDesc(e.target.value)
                                 }}
                                 defaultValue={
                                     mode === 'update' &&
                                     selectedProj !== undefined
-                                        ? projDesc
+                                        ? formDesc
                                         : ''
                                 }
                                 required
@@ -230,12 +230,12 @@ export const ProjectEditor = ({
                                 rows={5}
                                 placeholder="Optional description"
                                 onChange={(e) => {
-                                    setProjDesc(e.target.value)
+                                    setFormDesc(e.target.value)
                                 }}
                                 defaultValue={
                                     mode === 'update' &&
                                     selectedProj !== undefined
-                                        ? projDesc
+                                        ? formDesc
                                         : ''
                                 }
                             />
@@ -254,9 +254,14 @@ export const ProjectEditor = ({
                                     accept=".jpg, .png"
                                     required
                                     onChange={(e) => {
-                                        setProjImage(
-                                            `${e.target.files?.item(0)?.name}`
-                                        )
+                                        if (e.target.files) {
+                                            setImageFile(e.target.files[0])
+                                            console.log(imageFile)
+                                        } else {
+                                            alert(
+                                                'something went wrong with your images...'
+                                            )
+                                        }
                                     }}
                                 />
                             </div>
@@ -400,7 +405,7 @@ const createMethod = async (
     projects: ProjectArraySchema,
     sectionType: 'project' | 'example',
     title: string,
-    image: string | string[],
+    image: File | File[] | undefined,
     desc?: string,
     id?: number
 ) => {
@@ -415,7 +420,7 @@ const createMethod = async (
                 projId: aId,
                 projTitle: title,
                 projDescription: desc ? desc : '',
-                projPicture: image as string,
+                projPicture: (image as File).name,
                 examples: [],
             })
             await imagefetch(image, sectionType, aId)
@@ -429,11 +434,14 @@ const createMethod = async (
                     (proj) => proj.projId === id
                 )
                 const exampleId = makeExmpId(projIndex, projects)
+                const imageNames: string[] = (image as File[]).map(
+                    (img) => img.name
+                )
                 projects[projIndex].examples.push({
                     exmpId: exampleId,
                     exmpTitle: title,
                     exmpDescription: desc ? desc : '',
-                    exmpPictureArray: image as string[],
+                    exmpPictureArray: imageNames,
                 })
                 imagefetch(image, sectionType, exampleId)
             }
@@ -451,7 +459,7 @@ const createMethod = async (
 }
 
 const imagefetch = async (
-    image: any,
+    image: File | File[] | undefined,
     sectionType: 'project' | 'example',
     id: number
 ) => {
@@ -460,37 +468,45 @@ const imagefetch = async (
         case 'project':
             const formData = new FormData()
             formData.append('id', id.toString())
-            formData.append('image', image[0])
+            formData.append('image', image as Blob)
 
-            const result = await axios.post(
-                'http://localhost:3000/projectimage',
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                }
-            )
-            status = result.status
+            try {
+                const result = await fetch(
+                    'http://localhost:3000/projectimage',
+                    {
+                        method: 'POST',
+                        body: formData,
+                    }
+                )
+
+                status = result.status
+            } catch (e) {
+                console.log(e)
+            }
             break
         case 'example':
-            for (let i = 0; i < image.length; i++) {}
-            const formData2 = new FormData()
-            formData2.append('id', id.toString())
-            for (let i = 0; i < image.length; i++) {
-                formData2.append('images', image[i])
-            }
-
-            const result2 = await axios.post(
-                'http://localhost:3000/exampleimages',
-                formData2,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
+            if (image !== undefined) {
+                for (let i = 0; i < image.length; i++) {}
+                const formData2 = new FormData()
+                formData2.append('id', id.toString())
+                for (let i = 0; i < image.length; i++) {
+                    formData2.append('images', (image as File[])[i])
                 }
-            )
-            status = result2.status
+
+                try {
+                    const result = await fetch(
+                        'http://localhost:3000/exampleimages',
+                        {
+                            method: 'POST',
+                            body: formData2,
+                        }
+                    )
+
+                    status = result.status
+                } catch (e) {
+                    console.log(e)
+                }
+            }
             break
     }
     return status
@@ -499,8 +515,8 @@ const imagefetch = async (
 const makeExmpId = (projIndex: number, projects: ProjectArraySchema) => {
     const length = projects[projIndex].examples.length
     if (length !== 0) {
-        return projects[projIndex].examples[length - 1].exmpId + 1
+        return projects[projIndex].examples[length - 1].exmpId + 0.01
     } else {
-        return Number(`${projects[projIndex].projId}1`)
+        return Number(`${projects[projIndex].projId}.01`)
     }
 }

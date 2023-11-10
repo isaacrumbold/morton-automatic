@@ -10,10 +10,8 @@ const isProduction = false; //////////////// use this to set the path to write t
 ////////////////////////////////////////////
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    console.log(req.body);
-    // const path = `./editor_ui/public/portfolioImages/${req.body.id}`;
-    const path = `./RightHereTest/${req.body.id}`;
+  destination: (req, file, cb) => {
+    const path = `./editor_ui/public/portfolioImages/${req.body.id}`;
     fs.mkdirSync(path, { recursive: true });
     cb(null, path);
   },
@@ -55,14 +53,12 @@ app.post("/api", (req, res) => {
 });
 
 app.post("/projectimage", upload.single("image"), (req, res) => {
-  console.log(req.body);
   res.json({
     message: "image uploaded",
   });
 });
 
 app.post("/exampleimages", upload.array("images", 6), (req, res) => {
-  console.log("example images uploaded");
   res.json({
     message: "images uploaded",
   });
