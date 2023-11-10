@@ -1,6 +1,5 @@
 import React, { SyntheticEvent, useEffect, useState } from 'react'
 import { mode } from '../Editor'
-import axios from 'axios'
 
 type ProjectEditorProps = {
     mode: mode
