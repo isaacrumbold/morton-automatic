@@ -27,6 +27,7 @@ packasge-lock.json
 
 #folders
 private documents
+portfolioImages
 
 # any zip files
 *.zip
