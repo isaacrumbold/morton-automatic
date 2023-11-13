@@ -52,6 +52,23 @@ app.post("/api", (req, res) => {
   );
 });
 
+app.post("/deletefolder", (req, res) => {
+  res.json({
+    message: "we got your message",
+  });
+  imgArr.forEach((id) => {
+    fs.rmSync(
+      `./editor_ui/public/portfolioImages/${id}`,
+      { recursive: true, force: true },
+      (err) => {
+        if (err) {
+          console.error(err);
+        }
+      }
+    );
+  });
+});
+
 app.post("/projectimage", upload.single("image"), (req, res) => {
   res.json({
     message: "image uploaded",
