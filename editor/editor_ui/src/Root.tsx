@@ -18,7 +18,7 @@ function Root() {
 
     projects.length !== 0 &&
         links.length === 1 &&
-        links.push({ to: '/portfolio', name: 'portfolio', id: 2 })
+        links.push({ to: '/portfolio', name: 'Portfolio', id: 2 })
     const { pathname } = useLocation()
     useEffect(() => {
         window.scrollTo(0, 0)
