@@ -26,10 +26,10 @@ export const Portfolio = () => {
                     return (
                         <ProjectSection
                             key={project.projId}
-                            image="/images/portfolioImages/62936820-198C-4481-8DAB-1F3DA7A68698.jpg"
+                            image={`/portfolioImages/${project.projId}/${project.projPicture}`}
                             title={project.projTitle}
                             description={project.projDescription}
-                            alt="panel"
+                            alt="project image"
                             flipped={
                                 projects.indexOf(project as never) % 2 === 0
                             }
