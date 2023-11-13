@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
-import { ProjectCard } from './ProjectCard'
+import { ExampleCard } from './ExampleCard'
 
 type ProjectSectionProps = {
     image: string
@@ -42,15 +42,15 @@ export const ProjectSection = ({
     }
 
     return (
-        <div className="z-20 mb-16 flex h-fit flex-col items-center max-lg:mb-24">
+        <div className="z-20 mb-16 flex h-fit w-full flex-col items-center max-lg:mb-24 ">
             <div
-                className={` flex w-full max-w-6xl max-lg:flex-col ${flipRow}  max-lg:items-center`}
+                className={`flex h-fit w-full max-w-6xl max-lg:flex-col  ${flipRow}  max-lg:items-center`}
             >
-                <div className="m-4 mb-6 h-fit min-w-mobile max-lg:mx-5 max-lg:mb-2 max-lg:w-auto lg:w-1/2">
+                <div className="min-w-mobil m-4 mb-6 h-[325px] rounded-md max-lg:mx-5 max-lg:mb-2 max-lg:w-11/12 lg:w-1/2">
                     <img
                         src={image}
                         alt={alt}
-                        className=" w-full rounded-md object-cover"
+                        className="m-auto h-full rounded-md object-cover"
                     />
                 </div>
                 <div className="mx-6 my-8 flex min-w-mobile flex-col justify-center overflow-hidden max-lg:my-4 max-lg:w-auto lg:w-1/2">
@@ -87,7 +87,7 @@ export const ProjectSection = ({
                         })
 
                         return (
-                            <ProjectCard
+                            <ExampleCard
                                 key={ex.exmpId}
                                 imgArray={imagePathArr}
                                 title={ex.exmpTitle}
