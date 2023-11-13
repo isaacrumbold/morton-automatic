@@ -44,16 +44,16 @@ export const ProjectSection = ({
     return (
         <div className="z-20 mb-16 flex h-fit w-full flex-col items-center max-lg:mb-24 ">
             <div
-                className={`flex h-fit w-full max-w-6xl max-lg:flex-col  ${flipRow}  max-lg:items-center`}
+                className={` flex h-fit min-h-[340px] w-full max-w-6xl items-center max-lg:flex-col  ${flipRow} max-lg:items-center`}
             >
-                <div className="min-w-mobil m-4 mb-6 h-[325px] rounded-md max-lg:mx-5 max-lg:mb-2 max-lg:w-11/12 lg:w-1/2">
+                <div className="min-w-mobil m-4 rounded-md max-lg:w-11/12 lg:w-1/2">
                     <img
                         src={image}
                         alt={alt}
-                        className="m-auto h-full rounded-md object-cover"
+                        className="m-auto max-h-[500px] min-h-[300px] rounded-md object-cover"
                     />
                 </div>
-                <div className="mx-6 my-8 flex min-w-mobile flex-col justify-center overflow-hidden max-lg:my-4 max-lg:w-auto lg:w-1/2">
+                <div className="mx-6 my-8 flex w-full min-w-mobile flex-col justify-center overflow-hidden max-lg:my-4 max-lg:w-11/12 lg:w-1/2">
                     <h1 className="mb-3 text-2xl font-bold text-primary">
                         {title}
                     </h1>
@@ -79,7 +79,7 @@ export const ProjectSection = ({
             </div>
             {examples.length !== 0 && (
                 <div
-                    className={`flex h-fit max-w-6xl animate-fadeIn flex-col items-center border-primary bg-slate-100 py-6 lg:w-11/12 lg:border-l-4 ${isOpen.css} `}
+                    className={` mx-2 flex h-fit max-w-6xl animate-fadeIn flex-col items-center border-primary bg-slate-100 py-6 lg:w-11/12 lg:border-l-4 ${isOpen.css} `}
                 >
                     {examples?.map((ex) => {
                         const imagePathArr = ex.exmpPictureArray.map((pic) => {
