@@ -7,7 +7,7 @@ type ProjectCardProps = {
     description?: string
 }
 
-export const ProjectCard = ({
+export const ExampleCard = ({
     imgArray,
     title,
     description,
@@ -38,7 +38,7 @@ export const ProjectCard = ({
     // user should be able enlarge image
     return (
         <div className="bg-whit mb-8 flex w-5/6 flex-col items-center rounded-xl  bg-white py-4 shadow-2xl">
-            <div className=" relative w-5/6 max-w-2xl ">
+            <div className=" relative h-5/6 max-w-2xl ">
                 <img
                     id="image"
                     src={currentImage}
