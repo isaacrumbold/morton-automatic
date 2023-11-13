@@ -50,7 +50,7 @@ export const ProjectSection = ({
                     <img
                         src={image}
                         alt={alt}
-                        className="m-auto max-h-[500px] min-h-[300px] rounded-md object-cover"
+                        className="m-auto max-h-[500px] min-h-[300px] rounded-md object-cover max-lg:max-h-[400px]"
                     />
                 </div>
                 <div className="mx-6 my-8 flex w-full min-w-mobile flex-col justify-center overflow-hidden max-lg:my-4 max-lg:w-11/12 lg:w-1/2">
@@ -79,7 +79,7 @@ export const ProjectSection = ({
             </div>
             {examples.length !== 0 && (
                 <div
-                    className={` mx-2 flex h-fit max-w-6xl animate-fadeIn flex-col items-center border-primary bg-slate-100 py-6 lg:w-11/12 lg:border-l-4 ${isOpen.css} `}
+                    className={` mx-2 flex h-fit max-w-6xl animate-fadeIn flex-col items-center border-primary bg-slate-200 py-6 max-lg:w-full lg:w-11/12 lg:border-l-4 ${isOpen.css} `}
                 >
                     {examples?.map((ex) => {
                         const imagePathArr = ex.exmpPictureArray.map((pic) => {

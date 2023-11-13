@@ -363,6 +363,8 @@ const deleteMethod = async (
         alert('Id is required, select an Id.')
         return
     }
+    const imageIdArray: number[] = []
+
     switch (sectionType) {
         case 'project':
             const projectIndex = projects.findIndex(
@@ -372,6 +374,13 @@ const deleteMethod = async (
                 alert('Project not found')
                 return
             } else {
+                imageIdArray.push(id)
+                imageIdArray.push(
+                    ...projects[projectIndex].examples.map(
+                        (ex: ExampleSchema) => ex.exmpId
+                    )
+                )
+                console.log(imageIdArray)
                 projects.splice(projectIndex, 1)
             }
             break
@@ -381,6 +390,8 @@ const deleteMethod = async (
                     (example) => example.exmpId === id
                 )
                 if (exampleIndex !== -1) {
+                    imageIdArray.push(id)
+                    console.log(imageIdArray)
                     projects[i].examples.splice(exampleIndex, 1)
                 } else {
                     alert('Example not found')
@@ -396,8 +407,19 @@ const deleteMethod = async (
         body: JSON.stringify(projects),
     })
 
-    const status = await response.status
-    return status
+    const imageDeleteBody = JSON.stringify({ idArray: imageIdArray })
+
+    const imageDelete = await fetch('http://localhost:3000/deletefolder', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: imageDeleteBody,
+    })
+
+    const imageStatus = imageDelete.status
+    const status = response.status
+    return { status, imageStatus }
 }
 
 const createMethod = async (
@@ -516,6 +538,6 @@ const makeExmpId = (projIndex: number, projects: ProjectArraySchema) => {
     if (length !== 0) {
         return projects[projIndex].examples[length - 1].exmpId + 0.01
     } else {
-        return Number(`${projects[projIndex].projId}.01`)
+        return projects[projIndex].projId + 0.01
     }
 }

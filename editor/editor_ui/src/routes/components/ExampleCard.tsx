@@ -32,18 +32,14 @@ export const ExampleCard = ({
             setCurrentImage(images[currentIndex + 1])
         }
     }
-
-    // TODO: Add in ability to fadeIn image when it is changed
-    // Needs consistent image sizes
-    // user should be able enlarge image
     return (
-        <div className=" mb-8 flex w-5/6 flex-col items-center rounded-xl  bg-white py-4 shadow-2xl">
-            <div className=" relative h-[512px] w-full max-w-2xl rounded-md bg-black">
+        <div className=" mb-8 flex flex-col items-center rounded-xl bg-white shadow-2xl max-lg:w-11/12 lg:w-5/6">
+            <div className=" relative my-4 h-[512px] w-full max-w-2xl rounded-md bg-black max-lg:mt-0">
                 <img
                     id="image"
                     src={currentImage}
                     alt="picture"
-                    className="m-auto h-full rounded-md object-cover"
+                    className="m-auto h-full rounded-md object-cover "
                 />
                 {imgArray.length > 1 && (
                     <div className="absolute bottom-0 mb-64 flex w-full justify-between">
