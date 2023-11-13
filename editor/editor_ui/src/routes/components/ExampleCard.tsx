@@ -37,24 +37,26 @@ export const ExampleCard = ({
     // Needs consistent image sizes
     // user should be able enlarge image
     return (
-        <div className="bg-whit mb-8 flex w-5/6 flex-col items-center rounded-xl  bg-white py-4 shadow-2xl">
-            <div className=" relative h-5/6 max-w-2xl ">
+        <div className=" mb-8 flex w-5/6 flex-col items-center rounded-xl  bg-white py-4 shadow-2xl">
+            <div className=" relative h-[512px] w-full max-w-2xl rounded-md bg-black">
                 <img
                     id="image"
                     src={currentImage}
                     alt="picture"
-                    className="  h-full w-full rounded-md object-cover"
+                    className="m-auto h-full rounded-md object-cover"
                 />
-                <div className="absolute bottom-0 flex w-full justify-between">
-                    <ChevronLeftIcon
-                        className=" m-1 h-10 w-auto rounded-full border-2 border-primary bg-white text-primary transition-all duration-300 hover:cursor-pointer hover:bg-primary hover:text-white"
-                        onClick={moveLeft}
-                    />
-                    <ChevronRightIcon
-                        className="m-1 h-10 w-auto rounded-full border-2 border-primary bg-white text-primary transition-all duration-300 hover:cursor-pointer hover:bg-primary hover:text-white"
-                        onClick={moveRight}
-                    />
-                </div>
+                {imgArray.length > 1 && (
+                    <div className="absolute bottom-0 mb-64 flex w-full justify-between">
+                        <ChevronLeftIcon
+                            className=" m-1 h-10 w-auto rounded-full border-2 border-primary bg-white text-primary transition-all duration-300 hover:cursor-pointer hover:bg-primary hover:text-white"
+                            onClick={moveLeft}
+                        />
+                        <ChevronRightIcon
+                            className="m-1 h-10 w-auto rounded-full border-2 border-primary bg-white text-primary transition-all duration-300 hover:cursor-pointer hover:bg-primary hover:text-white"
+                            onClick={moveRight}
+                        />
+                    </div>
+                )}
             </div>
             <div className=" mx-8 my-4 w-5/6">
                 <h1 className=" mb-3 text-xl font-semibold text-primary">
