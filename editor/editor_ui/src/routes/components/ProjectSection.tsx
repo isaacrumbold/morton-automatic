@@ -1,8 +1,6 @@
 import { ChevronRightIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
 import { ProjectCard } from './ProjectCard'
-import im1 from '../../assets/images/bg-1.jpg'
-import im2 from '../../assets/images/bg-2.jpg'
 
 type ProjectSectionProps = {
     image: string
@@ -15,6 +13,7 @@ type ProjectSectionProps = {
         exmpId: number
         exmpTitle: string
         exmpDescription: string
+        exmpPictureArray: string[]
     }[]
 }
 
@@ -22,9 +21,6 @@ type IsOpenType = {
     open: boolean
     css: 'hidden' | 'block'
 }
-
-const testImages = [im1, im2]
-
 export const ProjectSection = ({
     image,
     title,
@@ -86,10 +82,14 @@ export const ProjectSection = ({
                     className={`flex h-fit max-w-6xl animate-fadeIn flex-col items-center border-primary bg-slate-100 py-6 lg:w-11/12 lg:border-l-4 ${isOpen.css} `}
                 >
                     {examples?.map((ex) => {
+                        const imagePathArr = ex.exmpPictureArray.map((pic) => {
+                            return `/portfolioImages/${ex.exmpId}/${pic}`
+                        })
+
                         return (
                             <ProjectCard
                                 key={ex.exmpId}
-                                imgArray={testImages}
+                                imgArray={imagePathArr}
                                 title={ex.exmpTitle}
                                 description={ex.exmpDescription}
                             />
