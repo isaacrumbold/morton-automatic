@@ -57,7 +57,7 @@ app.post("/deletefolder", (req, res) => {
   res.json({
     message: "we got your message",
   });
-  imgArr.forEach((id) => {
+  req.body.imgArr.forEach((id) => {
     fs.rmSync(
       isProduction
         ? `.${filePath}/portfolioImages/${id}`
