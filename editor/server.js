@@ -4,14 +4,19 @@ const app = express();
 const fs = require("fs");
 const cors = require("cors");
 const multer = require("multer");
+require("dotenv").config();
 
-////////////////////////////////////////////
-const isProduction = false; //////////////// use this to set the path to write to json files
-////////////////////////////////////////////
+const isProduction = process.env.IS_PRODUCTION === "true" ? true : false;
+const url = isProduction ? process.env.PROD_BASE_URL : process.env.DEV_BASE_URL;
+const filePath = isProduction
+  ? process.env.PROD_FILE_PATH
+  : process.env.DEV_FILE_PATH;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const path = `./editor_ui/public/portfolioImages/${req.body.id}`;
+    const path = isProduction
+      ? `.${filePath}/portfolioImages/${req.body.id}`
+      : `.${filePath}/public/portfolioImages/${req.body.id}`;
     fs.mkdirSync(path, { recursive: true });
     cb(null, path);
   },
@@ -30,9 +35,9 @@ app.use(cors());
 // };
 
 // this will eventually server the editor UI
-app.use("/", express.static(path.join(__dirname + "/dist")));
+app.use("/", express.static(path.join(__dirname + filePath)));
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/editor_ui/dist/index.html");
+  res.sendFile(__dirname + `${filePath}/index.html`);
 });
 
 // this will write and save the json file
@@ -41,15 +46,11 @@ app.post("/api", (req, res) => {
     message: "we got your message",
   });
 
-  fs.writeFile(
-    "./editor_ui/public/json/projects.json",
-    JSON.stringify(req.body),
-    (err) => {
-      if (err) {
-        console.error(err);
-      }
+  fs.writeFile(filePath, JSON.stringify(req.body), (err) => {
+    if (err) {
+      console.error(err);
     }
-  );
+  });
 });
 
 app.post("/deletefolder", (req, res) => {
@@ -58,7 +59,9 @@ app.post("/deletefolder", (req, res) => {
   });
   imgArr.forEach((id) => {
     fs.rmSync(
-      `./editor_ui/public/portfolioImages/${id}`,
+      isProduction
+        ? `.${filePath}/portfolioImages/${id}`
+        : `.${filePath}/public/portfolioImages/${id}`,
       { recursive: true, force: true },
       (err) => {
         if (err) {
@@ -83,4 +86,5 @@ app.post("/exampleimages", upload.array("images", 6), (req, res) => {
 
 app.listen(3000, () => {
   console.log("Application started and Listening on port 3000");
+  console.log(`serving UI at: ${url}`);
 });
