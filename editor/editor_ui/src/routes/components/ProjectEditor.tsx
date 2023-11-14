@@ -323,10 +323,12 @@ const updateMethod = async (
             break
         case 'example':
             for (let i = 0; i < projects.length; i++) {
-                const exampleIndex = projects[i].examples.findIndex(
+                let exampleIndex = projects[i].examples.findIndex(
                     (example) => example.exmpId === id
                 )
-                if (exampleIndex !== -1) {
+                if (exampleIndex === -1 && i === projects.length - 1) {
+                    alert('ID Not Found')
+                } else if (exampleIndex !== -1) {
                     projects[i].examples.splice(exampleIndex, 1, {
                         exmpId: id,
                         exmpTitle: title,
@@ -335,7 +337,7 @@ const updateMethod = async (
                             projects[i].examples[exampleIndex].exmpPictureArray,
                     })
                 } else {
-                    alert('ID not found')
+                    continue
                 }
                 break
             }
@@ -391,10 +393,11 @@ const deleteMethod = async (
                 )
                 if (exampleIndex !== -1) {
                     imageIdArray.push(id)
-                    console.log(imageIdArray)
                     projects[i].examples.splice(exampleIndex, 1)
-                } else {
+                } else if (exampleIndex === -1 && i === projects.length - 1) {
                     alert('Example not found')
+                } else {
+                    continue
                 }
                 break
             }
@@ -530,8 +533,8 @@ const imagefetch = async (
 const makeExmpId = (projIndex: number, projects: ProjectArraySchema) => {
     const length = projects[projIndex].examples.length
     if (length !== 0) {
-        return projects[projIndex].examples[length - 1].exmpId + 0.01
+        return projects[projIndex].examples[length - 1].exmpId + 1
     } else {
-        return projects[projIndex].projId + 0.01
+        return projects[projIndex].projId * 1000 + 1
     }
 }

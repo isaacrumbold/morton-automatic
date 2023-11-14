@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const fs = require("fs");
-const cors = require("cors");
+// const cors = require("cors");
 const multer = require("multer");
 require("dotenv").config();
 
@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 // const corsOptions = {
 //   origin: "http://localhost:1234/editor",
 //   optionsSuccessStatus: 200,
@@ -46,18 +46,23 @@ app.post("/api", (req, res) => {
     message: "we got your message",
   });
 
-  fs.writeFile(filePath, JSON.stringify(req.body), (err) => {
-    if (err) {
-      console.error(err);
+  fs.writeFile(
+    `.${filePath}/json/projects.json`,
+    JSON.stringify(req.body),
+    (err) => {
+      if (err) {
+        console.error(err);
+      }
     }
-  });
+  );
 });
 
 app.post("/deletefolder", (req, res) => {
   res.json({
     message: "we got your message",
   });
-  req.body.imgArr.forEach((id) => {
+
+  req.body.idArray.forEach((id) => {
     fs.rmSync(
       isProduction
         ? `.${filePath}/portfolioImages/${id}`
