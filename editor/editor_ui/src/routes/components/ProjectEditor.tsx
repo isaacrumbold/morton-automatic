@@ -341,7 +341,7 @@ const updateMethod = async (
             }
     }
 
-    const response = await fetch('http://localhost:3000/api', {
+    const response = await fetch('/api', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -399,7 +399,7 @@ const deleteMethod = async (
                 break
             }
     }
-    const response = await fetch('http://localhost:3000/api', {
+    const response = await fetch('/api', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -409,7 +409,7 @@ const deleteMethod = async (
 
     const imageDeleteBody = JSON.stringify({ idArray: imageIdArray })
 
-    const imageDelete = await fetch('http://localhost:3000/deletefolder', {
+    const imageDelete = await fetch('/deletefolder', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -467,7 +467,7 @@ const createMethod = async (
                 imagefetch(image, sectionType, exampleId)
             }
     }
-    const response = await fetch('http://localhost:3000/api', {
+    const response = await fetch('/api', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -492,13 +492,10 @@ const imagefetch = async (
             formData.append('image', image as Blob)
 
             try {
-                const result = await fetch(
-                    'http://localhost:3000/projectimage',
-                    {
-                        method: 'POST',
-                        body: formData,
-                    }
-                )
+                const result = await fetch('/projectimage', {
+                    method: 'POST',
+                    body: formData,
+                })
 
                 status = result.status
             } catch (e) {
@@ -515,13 +512,10 @@ const imagefetch = async (
                 }
 
                 try {
-                    const result = await fetch(
-                        'http://localhost:3000/exampleimages',
-                        {
-                            method: 'POST',
-                            body: formData2,
-                        }
-                    )
+                    const result = await fetch('/exampleimages', {
+                        method: 'POST',
+                        body: formData2,
+                    })
 
                     status = result.status
                 } catch (e) {
