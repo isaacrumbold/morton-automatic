@@ -1,41 +1,38 @@
-const express = require("express");
-const path = require("path");
-const app = express();
-const fs = require("fs");
-// const cors = require("cors");
-const multer = require("multer");
-require("dotenv").config();
+import express, { json } from "express";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
+import { mkdirSync, writeFile, rmSync } from "fs";
+import multer, { diskStorage } from "multer";
+import "dotenv/config";
 
+const app = express();
+
+//vars
 const isProduction = process.env.IS_PRODUCTION === "true" ? true : false;
 const url = isProduction ? process.env.PROD_BASE_URL : process.env.DEV_BASE_URL;
 const filePath = isProduction
   ? process.env.PROD_FILE_PATH
   : process.env.DEV_FILE_PATH;
-
-const storage = multer.diskStorage({
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const storage = diskStorage({
   destination: (req, file, cb) => {
     const path = isProduction
       ? `.${filePath}/portfolioImages/${req.body.id}`
       : `.${filePath}/public/portfolioImages/${req.body.id}`;
-    fs.mkdirSync(path, { recursive: true });
+    mkdirSync(path, { recursive: true });
     cb(null, path);
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
 });
-
 const upload = multer({ storage: storage });
 
-app.use(express.json());
-// app.use(cors());
-// const corsOptions = {
-//   origin: "http://localhost:1234/editor",
-//   optionsSuccessStatus: 200,
-// };
+app.use(json());
 
 // this will eventually server the editor UI
-app.use("/", express.static(path.join(__dirname + filePath)));
+app.use("/", express.static(join(__dirname + filePath)));
 app.get("/", (req, res) => {
   res.sendFile(__dirname + `${filePath}/index.html`);
 });
@@ -46,12 +43,12 @@ app.post("/api", (req, res) => {
     message: "we got your message",
   });
 
-  fs.writeFile(
+  writeFile(
     `.${filePath}/json/projects.json`,
     JSON.stringify(req.body),
     (err) => {
       if (err) {
-        console.error(err);
+        console.error("File Error:\n", err);
       }
     }
   );
@@ -63,7 +60,7 @@ app.post("/deletefolder", (req, res) => {
   });
 
   req.body.idArray.forEach((id) => {
-    fs.rmSync(
+    rmSync(
       isProduction
         ? `.${filePath}/portfolioImages/${id}`
         : `.${filePath}/public/portfolioImages/${id}`,
