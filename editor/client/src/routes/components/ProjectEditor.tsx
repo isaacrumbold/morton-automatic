@@ -1,5 +1,6 @@
 import React, { SyntheticEvent, useEffect, useState } from 'react'
 import { mode } from '../Editor'
+import axios from 'axios'
 
 type ProjectEditorProps = {
     mode: mode
@@ -343,15 +344,9 @@ const updateMethod = async (
             }
     }
 
-    const response = await fetch('/api', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(projects),
-    })
+    const response = await axios.post('/api', projects)
 
-    const status = await response.status
+    const status = response.status
 
     return status
 }

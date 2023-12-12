@@ -31,4 +31,5 @@ portfolioImages
 
 # any zip files
 *.zip
-projects.json
+/projects.json
+json/
