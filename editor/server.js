@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { mkdirSync, writeFile, rmSync } from "fs";
 import multer, { diskStorage } from "multer";
 import "dotenv/config";
+import cors from "cors";
 
 const app = express();
 
@@ -30,6 +31,7 @@ const storage = diskStorage({
 const upload = multer({ storage: storage });
 
 app.use(json());
+app.use(cors());
 
 // this will eventually server the editor UI
 app.use("/", express.static(join(__dirname + filePath)));
@@ -55,10 +57,6 @@ app.post("/api", (req, res) => {
 });
 
 app.post("/deletefolder", (req, res) => {
-  res.json({
-    message: "we got your message",
-  });
-
   req.body.idArray.forEach((id) => {
     rmSync(
       isProduction
