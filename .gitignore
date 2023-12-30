@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 ../*.txt
-*.env
+.env
 
 # Editor directories and files
 .vscode/*
@@ -35,3 +35,4 @@ portfolioImages
 *.zip
 /projects.json
 json/
+
