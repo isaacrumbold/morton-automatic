@@ -1,1 +1,0 @@
-Add dynamic path var to a .env file in client. This should reference localhost (http://localhost/3000/) in dev and be removed in prod.
