@@ -1,10 +1,11 @@
 import express, { json } from "express";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
-import { mkdirSync, writeFile, rmSync } from "fs";
+import { mkdirSync, rmSync } from "fs";
 import multer, { diskStorage } from "multer";
 import "dotenv/config";
 import cors from "cors";
+import { createProjectOrExample } from "./routes/post";
 
 const app = express();
 
@@ -35,26 +36,12 @@ app.use(cors());
 
 // this will eventually server the editor UI
 app.use("/", express.static(join(__dirname + filePath)));
+
 app.get("/", (req, res) => {
     res.sendFile(__dirname + `${filePath}/index.html`);
 });
 
-// this will write and save the json file
-app.post("/api", (req, res) => {
-    res.json({
-        message: "we got your message",
-    });
-
-    writeFile(
-        `.${filePath}/json/projects.json`,
-        JSON.stringify(req.body),
-        (err) => {
-            if (err) {
-                console.error("File Error:\n", err);
-            }
-        }
-    );
-});
+app.post("/api", (req, res) => createProjectOrExample(req, res, filePath));
 
 app.post("/deletefolder", (req, res) => {
     try {
