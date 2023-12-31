@@ -12,10 +12,10 @@ export const createProjectOrExample = (req: Request, res: Response, filePath: st
     res.status(200).json(req.body)
 }
 
-export const uploadImageSingle = (req: Request, res: Response) => {
+export const uploadImageSingle = (res: Response) => {
     res.status(200).send("Single image uploaded successfully")
 }
 
-export const uploadImageMultiple = (req: Request, res: Response) => {
+export const uploadImageMultiple = (res: Response) => {
     res.status(200).send("Multiple images uploaded successfully")
 }

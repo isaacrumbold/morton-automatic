@@ -4,8 +4,8 @@ import "dotenv/config";
 import cors from "cors";
 import { isProduction, url, filePath, uploader } from "./utils/index.ts";
 import { createProjectOrExample, uploadImageMultiple, uploadImageSingle } from "./routes/post.ts";
-import { deleteDirectory } from "./routes/delete.ts";
 import { fileURLToPath } from "url";
+import { deleteDirectory } from "./routes/delete.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/api", (req, res) => createProjectOrExample(req, res, filePath));
-app.post("/deletefolder", (req, res) => deleteDirectory(req, res, filePath, isProduction));
+app.post("/deletefolder", (req, res) => deleteDirectory(req, res, isProduction, filePath));
 app.post("/projectimage", uploader.single("image"), (req, res) => uploadImageSingle(res));
 app.post("/exampleimages", uploader.array("images", 6), (req, res) => uploadImageMultiple(res));
 
