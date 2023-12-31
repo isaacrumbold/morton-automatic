@@ -1,40 +1,19 @@
 import express, { json } from "express";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
-import { mkdirSync, rmSync } from "fs";
-import multer, { diskStorage } from "multer";
+import { dirname, join } from "path";
 import "dotenv/config";
 import cors from "cors";
-import { createProjectOrExample } from "./routes/post";
+import { isProduction, url, filePath, uploader } from "./utils/index.ts";
+import { createProjectOrExample, uploadImageMultiple, uploadImageSingle } from "./routes/post.ts";
+import { deleteDirectory } from "./routes/delete.ts";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 
-//vars
-const isProduction = process.env.IS_PRODUCTION === "true" ? true : false;
-const url = isProduction ? process.env.PROD_BASE_URL : process.env.DEV_BASE_URL;
-const filePath = isProduction
-    ? process.env.PROD_FILE_PATH
-    : process.env.DEV_FILE_PATH;
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const storage = diskStorage({
-    destination: (req, file, cb) => {
-        const path = isProduction
-            ? `.${filePath}/portfolioImages/${req.body.id}`
-            : `.${filePath}/public/portfolioImages/${req.body.id}`;
-        mkdirSync(path, { recursive: true });
-        cb(null, path);
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname);
-    },
-});
-const upload = multer({ storage: storage });
-
 app.use(json());
 app.use(cors());
-
-// this will eventually server the editor UI
 app.use("/", express.static(join(__dirname + filePath)));
 
 app.get("/", (req, res) => {
@@ -42,33 +21,9 @@ app.get("/", (req, res) => {
 });
 
 app.post("/api", (req, res) => createProjectOrExample(req, res, filePath));
-
-app.post("/deletefolder", (req, res) => {
-    try {
-        req.body.idArray.forEach((id: any) => {
-            rmSync(
-                isProduction
-                    ? `.${filePath}/portfolioImages/${id}`
-                    : `.${filePath}/public/portfolioImages/${id}`,
-                { recursive: true, force: true }
-            );
-        })
-    } catch (err: any) {
-        console.log(err)
-    };
-});
-
-app.post("/projectimage", upload.single("image"), (req, res) => {
-    res.json({
-        message: "image uploaded",
-    });
-});
-
-app.post("/exampleimages", upload.array("images", 6), (req, res) => {
-    res.json({
-        message: "images uploaded",
-    });
-});
+app.post("/deletefolder", (req, res) => deleteDirectory(req, res, filePath, isProduction));
+app.post("/projectimage", uploader.single("image"), (req, res) => uploadImageSingle(res));
+app.post("/exampleimages", uploader.array("images", 6), (req, res) => uploadImageMultiple(res));
 
 app.listen(3000, () => {
     console.log("Application started and Listening on port 3000");
